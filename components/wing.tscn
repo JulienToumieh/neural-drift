@@ -12,6 +12,7 @@ radius = 1.3331
 height = 22.3568
 
 [node name="Wing" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_qrhk2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -25,16 +26,18 @@ rotation = 2.69653
 shape = SubResource("CapsuleShape2D_ckqmv")
 
 [node name="Wing" type="Sprite2D" parent="."]
+light_mask = 2
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("1_3c6yl")
 
 [node name="WingCore" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.498039)
+light_mask = 2
 scale = Vector2(0.025, 0.025)
 texture = ExtResource("3_ckqmv")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 4.31
+energy = 4.0
 texture = ExtResource("3_yqgst")
 texture_scale = 1.5
 
@@ -55,6 +58,7 @@ target_position = Vector2(-320, 0)
 
 [node name="flame" type="Node2D" parent="."]
 visible = false
+light_mask = 2
 
 [node name="Outerflame" type="Sprite2D" parent="flame"]
 modulate = Color(1, 0.262745, 0.172549, 0.392157)
@@ -73,3 +77,12 @@ target_position = Vector2(-32, 56)
 
 [node name="BackRay2" type="RayCast2D" parent="."]
 target_position = Vector2(32, 56)
+
+[node name="WingButton" type="Button" parent="."]
+offset_left = -10.0
+offset_top = -12.0
+offset_right = 10.0
+offset_bottom = 12.0
+flat = true
+
+[connection signal="pressed" from="WingButton" to="." method="_on_wing_button_pressed"]

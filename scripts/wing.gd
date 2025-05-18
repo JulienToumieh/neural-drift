@@ -1,17 +1,35 @@
 extends CharacterBody2D
 
-const speed = 18.0
+const speed = 22.0
 var rotation_speed = 0.1
-var friction = 0.96
+var friction = 0.9
 
-@export var color = "#FFFFFF"
+var deactivated = false
+var afterdeath = 20.0
+
+@export var color = Color("#FFFFFF")
 @export var playable = false
 @export var network = {}
+@export var ID = -1
+
+var waiting = false
 
 func _ready():
 	changeColor(color)
-	if not playable and network.is_empty():
-		network = GANN.generateRandomNN(5, 6, 3)
+	if not playable:
+		changeColor(generate_light_vibrant_color())
+		if network.is_empty():
+			network = GANN.generateRandomNN(5, 6, 3)
+			
+
+func generate_light_vibrant_color() -> Color:
+	# Generate random values for RGB (between 0.5 and 1.0 to ensure lightness)
+	var r = randf_range(0.4, 1.0)  # Red channel
+	var g = randf_range(0.4, 1.0)  # Green channel
+	var b = randf_range(0.4, 1.0)  # Blue channel
+	
+	return Color(r, g, b)
+
 
 func _physics_process(delta):
 	if playable:
@@ -33,7 +51,7 @@ func _physics_process(delta):
 			var wallThrust1 = 1 - global_position.distance_to($BackRay1.get_collision_point())/50
 			var wallThrust2 = 1 - global_position.distance_to($BackRay2.get_collision_point())/50
 			velocity += Vector2(0, -speed * (isPos(wallThrust1) + isPos(wallThrust2)) * 2).rotated(rotation)
-	else:
+	elif not deactivated and not Globals.paused:
 		var distance1 = global_position.distance_to($RayCast1.get_collision_point())/320
 		var distance2 = global_position.distance_to($RayCast2.get_collision_point())/320
 		var distance3 = global_position.distance_to($RayCast3.get_collision_point())/320
@@ -60,15 +78,32 @@ func _physics_process(delta):
 			velocity += Vector2(0, -speed * (isPos(wallThrust1) + isPos(wallThrust2)) * 2).rotated(rotation)
 	
 	velocity *= friction
-
+		
 	move_and_slide()
+	
+	if deactivated and not waiting:
+		waiting = true
+		awaitDeath()
+	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider() is StaticBody2D:
+			deactivated = true
+			velocity = Vector2(0, 0)
+
+func awaitDeath():
+	await get_tree().create_timer(afterdeath).timeout
+	queue_free()
 
 func changeColor(col):
-	$Wing.modulate = Color(col)
-	$WingCore.modulate = Color(col)
-	$PointLight2D.color = Color(col)
+	$Wing.modulate = col
+	$WingCore.modulate = col
+	$PointLight2D.color = col
 
 func isPos(val):
 	if val > 0:
 		return val
 	return 0
+
+func _on_wing_button_pressed():
+	Globals.addWing(network)

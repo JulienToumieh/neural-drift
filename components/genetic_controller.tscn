@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://3t2yxk3tbgub"]
+[gd_scene load_steps=17 format=3 uid="uid://3t2yxk3tbgub"]
 
 [ext_resource type="Script" uid="uid://dxfti1w5pyuwf" path="res://scripts/genetic_controller.gd" id="1_7hmms"]
 [ext_resource type="Texture2D" uid="uid://b7hoqahlevqye" path="res://assets/mutate.png" id="1_e327o"]
 [ext_resource type="Texture2D" uid="uid://cvb1u3ok4baiv" path="res://assets/crossover.png" id="2_4tp7o"]
 [ext_resource type="Texture2D" uid="uid://vth1x5mmqxae" path="res://assets/newpopulation.png" id="2_by4p7"]
+[ext_resource type="Texture2D" uid="uid://oquafljkjucv" path="res://assets/play.png" id="5_210wd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7hmms"]
 
@@ -67,6 +68,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="NewPopulation"]
+modulate = Color(0.260658, 0.6905, 0.8196, 1)
 position = Vector2(40, 24)
 scale = Vector2(0.0541455, 0.0541455)
 texture = ExtResource("2_by4p7")
@@ -74,10 +76,10 @@ texture = ExtResource("2_by4p7")
 [node name="Mutate" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 120.0
-offset_top = 16.0
-offset_right = 200.0
-offset_bottom = 104.0
+offset_left = 16.0
+offset_top = 112.0
+offset_right = 96.0
+offset_bottom = 200.0
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
@@ -108,6 +110,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="Mutate"]
+modulate = Color(1, 0.536075, 0.226002, 1)
 position = Vector2(40, 24)
 scale = Vector2(0.0541455, 0.0541455)
 texture = ExtResource("1_e327o")
@@ -115,10 +118,10 @@ texture = ExtResource("1_e327o")
 [node name="Crossover" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 224.0
-offset_top = 16.0
-offset_right = 304.0
-offset_bottom = 104.0
+offset_left = 104.0
+offset_top = 112.0
+offset_right = 184.0
+offset_bottom = 200.0
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -149,6 +152,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="Crossover"]
+modulate = Color(0.925877, 0, 0.319666, 1)
 position = Vector2(40, 24)
 scale = Vector2(0.0541455, 0.0541455)
 texture = ExtResource("2_4tp7o")
@@ -156,15 +160,18 @@ texture = ExtResource("2_4tp7o")
 [node name="Population" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 328.0
+offset_left = 104.0
 offset_top = 16.0
-offset_right = 424.0
+offset_right = 184.0
 offset_bottom = 96.0
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
 [node name="Population" type="TextEdit" parent="Population"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0833333
+anchor_right = -0.0833333
 offset_left = 24.0
 offset_top = 8.0
 offset_right = 72.0
@@ -173,11 +180,13 @@ text = "100"
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Population"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = -0.166667
 offset_top = 48.0
 offset_right = 96.0
 offset_bottom = 80.0
-text = "Population"
+text = "Pop"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -185,73 +194,111 @@ metadata/_edit_use_anchors_ = true
 [node name="Parameters" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 488.0
-offset_top = 8.0
-offset_right = 856.0
-offset_bottom = 104.0
-metadata/_edit_group_ = true
+offset_left = 40.0
+offset_top = 568.0
+offset_right = 408.0
+offset_bottom = 680.0
+rotation = -1.5708
 metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
 
 [node name="MutationRateSlider" type="HSlider" parent="Parameters"]
+modulate = Color(0.996102, 0.397997, 1, 1)
 layout_mode = 0
+offset_left = 192.0
 offset_top = 24.0
-offset_right = 160.0
+offset_right = 352.0
 offset_bottom = 40.0
 max_value = 1.0
 step = 0.01
+value = 0.03
 
 [node name="Label" type="Label" parent="Parameters"]
 layout_mode = 0
-offset_right = 111.0
+offset_left = 192.0
+offset_top = 1.41146e-05
+offset_right = 303.0
 offset_bottom = 23.0
 text = "Mutation Rate"
 
 [node name="MutationStrengthSlider" type="HSlider" parent="Parameters"]
+modulate = Color(0.27802, 0.503559, 1, 1)
 layout_mode = 0
-offset_top = 72.0
-offset_right = 160.0
-offset_bottom = 88.0
+offset_left = 192.0
+offset_top = 88.0
+offset_right = 352.0
+offset_bottom = 104.0
 max_value = 1.0
 step = 0.01
+value = 0.5
 
 [node name="Label2" type="Label" parent="Parameters"]
 layout_mode = 0
-offset_top = 48.0
-offset_right = 111.0
-offset_bottom = 71.0
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 335.0
+offset_bottom = 87.0
 text = "Mutation Strength"
 
 [node name="CrossoverRateSlider" type="HSlider" parent="Parameters"]
+modulate = Color(1, 0.582142, 0.152498, 1)
 layout_mode = 0
-offset_left = 192.0
+offset_left = 8.0
 offset_top = 24.0
-offset_right = 352.0
+offset_right = 168.0
 offset_bottom = 40.0
 max_value = 1.0
 step = 0.01
+value = 0.3
 
 [node name="Label3" type="Label" parent="Parameters"]
 layout_mode = 0
-offset_left = 192.0
-offset_right = 303.0
+offset_left = 8.0
+offset_right = 125.0
 offset_bottom = 23.0
 text = "Crossover Rate"
 
 [node name="CrossoverBlendSlider" type="HSlider" parent="Parameters"]
+modulate = Color(0.446379, 0.644419, 0.00295619, 1)
 layout_mode = 0
-offset_left = 192.0
-offset_top = 72.0
-offset_right = 352.0
-offset_bottom = 88.0
+offset_left = 8.0
+offset_top = 88.0
+offset_right = 168.0
+offset_bottom = 104.0
 max_value = 1.0
 step = 0.01
+value = 0.4
 
 [node name="Label4" type="Label" parent="Parameters"]
 layout_mode = 0
-offset_left = 192.0
-offset_top = 48.0
-offset_right = 303.0
-offset_bottom = 71.0
+offset_left = 8.0
+offset_top = 64.0
+offset_right = 134.0
+offset_bottom = 87.0
 text = "Crossover Blend"
 
 [node name="Wings" type="Node2D" parent="."]
+
+[node name="PlayPause2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 56.0
+offset_top = 608.0
+offset_right = 120.0
+offset_bottom = 672.0
+metadata/_edit_group_ = true
+
+[node name="PlayPause" type="Button" parent="PlayPause2"]
+offset_right = 64.0
+offset_bottom = 64.0
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayPause2"]
+position = Vector2(32, 32)
+scale = Vector2(0.0473773, 0.0473773)
+texture = ExtResource("5_210wd")
+
+[connection signal="pressed" from="NewPopulation/NewPopulation" to="." method="_on_new_population_pressed"]
+[connection signal="pressed" from="Mutate/Mutate" to="." method="_on_mutate_pressed"]
+[connection signal="pressed" from="Crossover/Crossover" to="." method="_on_crossover_pressed"]
+[connection signal="pressed" from="PlayPause2/PlayPause" to="." method="_on_play_pause_pressed"]
