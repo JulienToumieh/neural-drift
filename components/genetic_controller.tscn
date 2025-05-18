@@ -1,0 +1,257 @@
+[gd_scene load_steps=16 format=3 uid="uid://3t2yxk3tbgub"]
+
+[ext_resource type="Script" uid="uid://dxfti1w5pyuwf" path="res://scripts/genetic_controller.gd" id="1_7hmms"]
+[ext_resource type="Texture2D" uid="uid://b7hoqahlevqye" path="res://assets/mutate.png" id="1_e327o"]
+[ext_resource type="Texture2D" uid="uid://cvb1u3ok4baiv" path="res://assets/crossover.png" id="2_4tp7o"]
+[ext_resource type="Texture2D" uid="uid://vth1x5mmqxae" path="res://assets/newpopulation.png" id="2_by4p7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7hmms"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_by4p7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_210wd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m2yt8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7rpjq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ux1xd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgqup"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r0jk4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12qjl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_napn6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t0esg"]
+
+[node name="GeneticController" type="Node2D"]
+script = ExtResource("1_7hmms")
+
+[node name="NewPopulation" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 96.0
+offset_bottom = 104.0
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="NewPopulation" type="Button" parent="NewPopulation"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7hmms")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_by4p7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_210wd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_m2yt8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7rpjq")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ux1xd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kgqup")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_r0jk4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_12qjl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_napn6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t0esg")
+flat = true
+
+[node name="Label" type="Label" parent="NewPopulation"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 80.0
+offset_bottom = 80.0
+text = "New Pop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="NewPopulation"]
+position = Vector2(40, 24)
+scale = Vector2(0.0541455, 0.0541455)
+texture = ExtResource("2_by4p7")
+
+[node name="Mutate" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 16.0
+offset_right = 200.0
+offset_bottom = 104.0
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="Mutate" type="Button" parent="Mutate"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7hmms")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_by4p7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_210wd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_m2yt8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7rpjq")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ux1xd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kgqup")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_r0jk4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_12qjl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_napn6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t0esg")
+flat = true
+
+[node name="Label" type="Label" parent="Mutate"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 80.0
+offset_bottom = 80.0
+text = "Mutate"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Mutate"]
+position = Vector2(40, 24)
+scale = Vector2(0.0541455, 0.0541455)
+texture = ExtResource("1_e327o")
+
+[node name="Crossover" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 224.0
+offset_top = 16.0
+offset_right = 304.0
+offset_bottom = 104.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Crossover" type="Button" parent="Crossover"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7hmms")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_by4p7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_210wd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_m2yt8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7rpjq")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ux1xd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kgqup")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_r0jk4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_12qjl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_napn6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t0esg")
+flat = true
+
+[node name="Label" type="Label" parent="Crossover"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 80.0
+offset_bottom = 80.0
+text = "Crossover"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Crossover"]
+position = Vector2(40, 24)
+scale = Vector2(0.0541455, 0.0541455)
+texture = ExtResource("2_4tp7o")
+
+[node name="Population" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 328.0
+offset_top = 16.0
+offset_right = 424.0
+offset_bottom = 96.0
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="Population" type="TextEdit" parent="Population"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 43.0
+text = "100"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Population"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 80.0
+text = "Population"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Parameters" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 488.0
+offset_top = 8.0
+offset_right = 856.0
+offset_bottom = 104.0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MutationRateSlider" type="HSlider" parent="Parameters"]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 160.0
+offset_bottom = 40.0
+max_value = 1.0
+step = 0.01
+
+[node name="Label" type="Label" parent="Parameters"]
+layout_mode = 0
+offset_right = 111.0
+offset_bottom = 23.0
+text = "Mutation Rate"
+
+[node name="MutationStrengthSlider" type="HSlider" parent="Parameters"]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 160.0
+offset_bottom = 88.0
+max_value = 1.0
+step = 0.01
+
+[node name="Label2" type="Label" parent="Parameters"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 111.0
+offset_bottom = 71.0
+text = "Mutation Strength"
+
+[node name="CrossoverRateSlider" type="HSlider" parent="Parameters"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 24.0
+offset_right = 352.0
+offset_bottom = 40.0
+max_value = 1.0
+step = 0.01
+
+[node name="Label3" type="Label" parent="Parameters"]
+layout_mode = 0
+offset_left = 192.0
+offset_right = 303.0
+offset_bottom = 23.0
+text = "Crossover Rate"
+
+[node name="CrossoverBlendSlider" type="HSlider" parent="Parameters"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 72.0
+offset_right = 352.0
+offset_bottom = 88.0
+max_value = 1.0
+step = 0.01
+
+[node name="Label4" type="Label" parent="Parameters"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 48.0
+offset_right = 303.0
+offset_bottom = 71.0
+text = "Crossover Blend"
+
+[node name="Wings" type="Node2D" parent="."]

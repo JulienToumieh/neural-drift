@@ -1,15 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://dtagyj4ns0d3a"]
 
 [ext_resource type="Texture2D" uid="uid://cgfhrwofnnu4e" path="res://assets/wing.png" id="1_3c6yl"]
-[ext_resource type="Script" uid="uid://htvxj14xfwly" path="res://wing.gd" id="1_qrhk2"]
+[ext_resource type="Script" uid="uid://htvxj14xfwly" path="res://scripts/wing.gd" id="1_qrhk2"]
 [ext_resource type="Texture2D" uid="uid://dk12jbn7dhgt6" path="res://assets/wingcore.png" id="3_ckqmv"]
 [ext_resource type="Texture2D" uid="uid://s7prt66ufwuu" path="res://assets/glow.png" id="3_yqgst"]
 [ext_resource type="Texture2D" uid="uid://d2bt2brjrj3hj" path="res://assets/outerflame.png" id="4_xiynq"]
 [ext_resource type="Texture2D" uid="uid://bde0nx1ndwlpr" path="res://assets/innerflame.png" id="5_ckqmv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ckqmv"]
-radius = 3.13475
-height = 25.9548
+radius = 1.3331
+height = 22.3568
 
 [node name="Wing" type="CharacterBody2D"]
 script = ExtResource("1_qrhk2")
@@ -25,12 +25,12 @@ rotation = 2.69653
 shape = SubResource("CapsuleShape2D_ckqmv")
 
 [node name="Wing" type="Sprite2D" parent="."]
-scale = Vector2(0.0338409, 0.0338409)
+scale = Vector2(0.025, 0.025)
 texture = ExtResource("1_3c6yl")
 
 [node name="WingCore" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.498039)
-scale = Vector2(0.0338409, 0.0338409)
+scale = Vector2(0.025, 0.025)
 texture = ExtResource("3_ckqmv")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
@@ -58,14 +58,14 @@ visible = false
 
 [node name="Outerflame" type="Sprite2D" parent="flame"]
 modulate = Color(1, 0.262745, 0.172549, 0.392157)
-position = Vector2(0, 40)
-scale = Vector2(0.0451128, 0.0451128)
+position = Vector2(0, 33)
+scale = Vector2(0.035, 0.035)
 texture = ExtResource("4_xiynq")
 
 [node name="Innerflame" type="Sprite2D" parent="flame"]
 modulate = Color(1, 0.345098, 0.105882, 1)
-position = Vector2(0, 40)
-scale = Vector2(0.045, 0.045)
+position = Vector2(0, 33)
+scale = Vector2(0.035, 0.035)
 texture = ExtResource("5_ckqmv")
 
 [node name="BackRay1" type="RayCast2D" parent="."]

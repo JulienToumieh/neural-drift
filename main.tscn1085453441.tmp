@@ -1,21 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfk7dba5d2jbl"]
+[gd_scene load_steps=5 format=3 uid="uid://cfk7dba5d2jbl"]
 
 [ext_resource type="Shader" uid="uid://65vvgjwyq1aq" path="res://pixelate.gdshader" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://dtagyj4ns0d3a" path="res://components/wing.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://dtagyj4ns0d3a" path="res://wing.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://cakwjl1yuwmsu" path="res://color_rect.gd" id="3_h2yge"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm2m"]
 shader = ExtResource("1_0xm2m")
-shader_parameter/pixel_size = 2
-shader_parameter/screen_size = Vector2(1280, 720)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("3_h2yge")
 
 [node name="Wing" parent="." instance=ExtResource("2_h2yge")]
-position = Vector2(128, 128)
+position = Vector2(112, 120)
 color = "#FF00FF"
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_0xm2m")
 offset_right = 1280.0
 offset_bottom = 720.0
+
+[node name="Wing2" parent="." instance=ExtResource("2_h2yge")]
+position = Vector2(112, 120)
+color = "#FF00FF"
