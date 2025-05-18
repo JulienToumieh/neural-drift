@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfk7dba5d2jbl"]
+
+[ext_resource type="Texture2D" uid="uid://bcudafy0op3ft" path="res://icon.svg" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dtagyj4ns0d3a" path="res://wing.tscn" id="2_h2yge"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(0.108555, 0.108555, 0.108555, 1)
+position = Vector2(572, 327)
+scale = Vector2(7.34375, 3.875)
+texture = ExtResource("1_0xm2m")
+
+[node name="Wing" parent="." instance=ExtResource("2_h2yge")]
+position = Vector2(576, 334)
+color = "#FF00FF"
