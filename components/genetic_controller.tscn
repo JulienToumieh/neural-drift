@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://3t2yxk3tbgub"]
+[gd_scene load_steps=19 format=3 uid="uid://3t2yxk3tbgub"]
 
 [ext_resource type="Script" uid="uid://dxfti1w5pyuwf" path="res://scripts/genetic_controller.gd" id="1_7hmms"]
 [ext_resource type="Texture2D" uid="uid://b7hoqahlevqye" path="res://assets/mutate.png" id="1_e327o"]
 [ext_resource type="Texture2D" uid="uid://cvb1u3ok4baiv" path="res://assets/crossover.png" id="2_4tp7o"]
 [ext_resource type="Texture2D" uid="uid://vth1x5mmqxae" path="res://assets/newpopulation.png" id="2_by4p7"]
 [ext_resource type="Texture2D" uid="uid://oquafljkjucv" path="res://assets/play.png" id="5_210wd"]
+[ext_resource type="Texture2D" uid="uid://hqognhpsj7tw" path="res://assets/pause.png" id="6_m2yt8"]
+[ext_resource type="PackedScene" uid="uid://d37wi65b1ujtk" path="res://components/nn_display.tscn" id="7_7rpjq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7hmms"]
 
@@ -77,9 +79,9 @@ texture = ExtResource("2_by4p7")
 layout_mode = 3
 anchors_preset = 0
 offset_left = 16.0
-offset_top = 112.0
+offset_top = 104.0
 offset_right = 96.0
-offset_bottom = 200.0
+offset_bottom = 192.0
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
@@ -118,10 +120,10 @@ texture = ExtResource("1_e327o")
 [node name="Crossover" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 104.0
-offset_top = 112.0
-offset_right = 184.0
-offset_bottom = 200.0
+offset_left = 96.0
+offset_top = 104.0
+offset_right = 176.0
+offset_bottom = 192.0
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
@@ -160,9 +162,9 @@ texture = ExtResource("2_4tp7o")
 [node name="Population" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 104.0
+offset_left = 96.0
 offset_top = 16.0
-offset_right = 184.0
+offset_right = 176.0
 offset_bottom = 96.0
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
@@ -182,6 +184,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Label" type="Label" parent="Population"]
 layout_mode = 1
 anchors_preset = -1
+anchor_left = -0.166667
 anchor_right = -0.166667
 offset_top = 48.0
 offset_right = 96.0
@@ -195,9 +198,9 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = 40.0
-offset_top = 568.0
+offset_top = 560.0
 offset_right = 408.0
-offset_bottom = 680.0
+offset_bottom = 672.0
 rotation = -1.5708
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
@@ -289,14 +292,26 @@ offset_bottom = 672.0
 metadata/_edit_group_ = true
 
 [node name="PlayPause" type="Button" parent="PlayPause2"]
+layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
 flat = true
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayPause2"]
+[node name="play" type="Sprite2D" parent="PlayPause2"]
+visible = false
+modulate = Color(0, 1, 0.427451, 1)
 position = Vector2(32, 32)
 scale = Vector2(0.0473773, 0.0473773)
 texture = ExtResource("5_210wd")
+
+[node name="pause" type="Sprite2D" parent="PlayPause2"]
+modulate = Color(0.471106, 0.471106, 0.471106, 1)
+position = Vector2(32, 32)
+scale = Vector2(0.0473773, 0.0473773)
+texture = ExtResource("6_m2yt8")
+
+[node name="NnDisplay" parent="." instance=ExtResource("7_7rpjq")]
+position = Vector2(704, 8)
 
 [connection signal="pressed" from="NewPopulation/NewPopulation" to="." method="_on_new_population_pressed"]
 [connection signal="pressed" from="Mutate/Mutate" to="." method="_on_mutate_pressed"]

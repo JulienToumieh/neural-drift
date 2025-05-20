@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://co1bhjljiue8n"]
+[gd_scene load_steps=7 format=3 uid="uid://co1bhjljiue8n"]
 
 [ext_resource type="Texture2D" uid="uid://5vdo66i205pu" path="res://assets/tracks/track1inner.png" id="1_4w7m1"]
 [ext_resource type="Texture2D" uid="uid://lq1ro8uaycri" path="res://assets/1px.png" id="1_x6ibg"]
 [ext_resource type="Texture2D" uid="uid://bfo5l0fw3m0vm" path="res://assets/tracks/track1outer.png" id="2_wf5vu"]
 [ext_resource type="PackedScene" uid="uid://3t2yxk3tbgub" path="res://components/genetic_controller.tscn" id="4_vqsel"]
 [ext_resource type="Texture2D" uid="uid://cgfhrwofnnu4e" path="res://assets/wing.png" id="4_x6ibg"]
+[ext_resource type="PackedScene" uid="uid://dtagyj4ns0d3a" path="res://components/wing.tscn" id="6_sawpj"]
 
 [node name="Track1" type="Node2D"]
 
@@ -16,6 +17,8 @@ texture = ExtResource("1_x6ibg")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(88, 16)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(640, 360)
@@ -27,14 +30,6 @@ position = Vector2(640, 360)
 build_mode = 1
 polygon = PackedVector2Array(-405, -303, -405, -301.6, -427.1, -296, -430.6, -296, -453.6, -281, -455.9, -281, -468.9, -267, -470.1, -267, -479.1, -252, -480.4, -252, -488.4, -230, -489.8, -230, -491.8, -215, -493, -215, -493, 173.3, -486, 197.2, -486, 200.6, -474, 219.6, -474, 221.8, -457, 238.8, -457, 240.1, -442, 249.1, -442, 250.5, -403.3, 263, 373.3, 263, 397.3, 256, 400.6, 256, 408.6, 251, 410.7, 251, 423.7, 241, 425.9, 241, 438.9, 227, 440.2, 227, 454.1, 202, 455.6, 202, 461.6, 175, 463, 175, 463, -173.3, 456, -197.3, 456, -200.6, 444, -219.7, 444, -221.8, 427, -238.8, 427, -240.1, 412, -249.1, 412, -250.4, 382, -260.5, 382, -262, 339.7, -262, 322.6, -256, 319.4, -256, 306.5, -248, 304.2, -248, 281.2, -227, 279.8, -227, 265.9, -202, 264.4, -202, 259.5, -182, 258.3, -182, 257, -173.1, 257, -80.5, 254, -72.4, 254, -71, 248, -65.9, 238, -63.6, 238, -63, -63.3, -63, -74.1, -60, -78.5, -60, -103.5, -48, -105.8, -48, -128.8, -27, -130.2, -27, -144.1, -2, -145.6, -2, -154, 39.8, -154, 45.2, -162, 54.2, -170.3, 57, -269.6, 57, -277.6, 54, -279.1, 54, -284.1, 48, -286.4, 38, -287, 38, -287, -79.6, -284, -87.6, -284, -89.1, -278, -94.1, -268, -96.4, -268, -97.1, -157, -98, -149.7, -98, -132.6, -104, -129.4, -104, -110.4, -116, -108.1, -116, -88.2, -137, -86.8, -137, -75.8, -158, -74.4, -158, -71.5, -170, -70.4, -170, -67, -186.8, -67, -213.3, -74, -237.3, -74, -240.6, -89, -263.7, -89, -265.9, -103, -279, -103, -280.2, -128, -294.2, -128, -295.6, -148, -300.6, -148, -302)
 
-[node name="Track1Inner" type="Sprite2D" parent="."]
-position = Vector2(728, 376)
-texture = ExtResource("1_4w7m1")
-
-[node name="Track1Outer" type="Sprite2D" parent="."]
-position = Vector2(728, 376)
-texture = ExtResource("2_wf5vu")
-
 [node name="GeneticController" parent="." instance=ExtResource("4_vqsel")]
 wingPos = Vector2(400, 408)
 
@@ -43,3 +38,17 @@ visible = false
 position = Vector2(400, 408)
 scale = Vector2(0.03, 0.028)
 texture = ExtResource("4_x6ibg")
+
+[node name="Wing" parent="." instance=ExtResource("6_sawpj")]
+position = Vector2(400, 408)
+playable = true
+
+[node name="TrackImages" type="Node2D" parent="."]
+
+[node name="Track1Inner" type="Sprite2D" parent="TrackImages"]
+position = Vector2(728, 376)
+texture = ExtResource("1_4w7m1")
+
+[node name="Track1Outer" type="Sprite2D" parent="TrackImages"]
+position = Vector2(728, 376)
+texture = ExtResource("2_wf5vu")

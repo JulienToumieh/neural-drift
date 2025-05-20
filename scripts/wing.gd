@@ -1,16 +1,20 @@
 extends CharacterBody2D
 
 const speed = 22.0
-var rotation_speed = 0.1
+var rotation_speed = 0.07
 var friction = 0.9
+var wallThrust = 2.5
 
 var deactivated = false
 var afterdeath = 20.0
+
 
 @export var color = Color("#FFFFFF")
 @export var playable = false
 @export var network = {}
 @export var ID = -1
+
+var DisplayNN = false
 
 var waiting = false
 
@@ -19,20 +23,19 @@ func _ready():
 	if not playable:
 		changeColor(generate_light_vibrant_color())
 		if network.is_empty():
-			network = GANN.generateRandomNN(5, 6, 3)
+			network = GANN.generateRandomNN(5, 8, 3)
 			
 
 func generate_light_vibrant_color() -> Color:
-	# Generate random values for RGB (between 0.5 and 1.0 to ensure lightness)
-	var r = randf_range(0.4, 1.0)  # Red channel
-	var g = randf_range(0.4, 1.0)  # Green channel
-	var b = randf_range(0.4, 1.0)  # Blue channel
+	var r = randf_range(0.4, 1.0)
+	var g = randf_range(0.4, 1.0)  
+	var b = randf_range(0.4, 1.0) 
 	
 	return Color(r, g, b)
 
 
 func _physics_process(delta):
-	if playable:
+	if playable and not deactivated:
 		if Input.is_action_pressed("ui_up"):
 			velocity += Vector2(0, -speed).rotated(rotation)
 		if Input.is_action_pressed("ui_left"):
@@ -42,6 +45,9 @@ func _physics_process(delta):
 			rotation += rotation_speed
 			#velocity += Vector2(0, -SPEED * 0.02).rotated(rotation)
 		
+		if Input.is_action_pressed("ui_down"):
+			velocity += Vector2(0, speed).rotated(rotation)
+		
 		if Input.is_action_just_released("ui_up"):
 			$flame.visible = false
 		if Input.is_action_just_pressed("ui_up"):
@@ -50,7 +56,8 @@ func _physics_process(delta):
 		if ($BackRay1.is_colliding() or $BackRay2.is_colliding()) and Input.is_action_pressed("ui_up"):
 			var wallThrust1 = 1 - global_position.distance_to($BackRay1.get_collision_point())/50
 			var wallThrust2 = 1 - global_position.distance_to($BackRay2.get_collision_point())/50
-			velocity += Vector2(0, -speed * (isPos(wallThrust1) + isPos(wallThrust2)) * 2).rotated(rotation)
+			velocity += Vector2(0, -speed * (isPos(wallThrust1) + isPos(wallThrust2)) * wallThrust).rotated(rotation)
+			
 	elif not deactivated and not Globals.paused:
 		var distance1 = global_position.distance_to($RayCast1.get_collision_point())/320
 		var distance2 = global_position.distance_to($RayCast2.get_collision_point())/320
@@ -59,6 +66,10 @@ func _physics_process(delta):
 		var distance5 = global_position.distance_to($RayCast5.get_collision_point())/320
 		
 		var inputs = [distance1, distance2, distance3, distance4, distance5]
+		
+		if DisplayNN:
+			print(ID)
+			get_parent().get_parent().get_node("NnDisplay").forwardPass(network, inputs)
 		
 		var output = GANN.forwardPass(network, inputs)
 		
@@ -75,7 +86,7 @@ func _physics_process(delta):
 		if ($BackRay1.is_colliding() or $BackRay2.is_colliding()) and output[0] > 0.5:
 			var wallThrust1 = 1 - global_position.distance_to($BackRay1.get_collision_point())/50
 			var wallThrust2 = 1 - global_position.distance_to($BackRay2.get_collision_point())/50
-			velocity += Vector2(0, -speed * (isPos(wallThrust1) + isPos(wallThrust2)) * 2).rotated(rotation)
+			velocity += Vector2(0, -speed * (isPos(wallThrust1) + isPos(wallThrust2)) * wallThrust).rotated(rotation)
 	
 	velocity *= friction
 		
@@ -83,13 +94,20 @@ func _physics_process(delta):
 	
 	if deactivated and not waiting:
 		waiting = true
+		$flame.visible = false
+		$PointLight2D.queue_free()
 		awaitDeath()
 	
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		if collision.get_collider() is StaticBody2D:
-			deactivated = true
-			velocity = Vector2(0, 0)
+		if collision.get_collider() is StaticBody2D: # and not playable:
+			var collision_normal = collision.get_normal().rotated(-rotation)
+			
+			
+			if collision_normal.y > 0:
+				deactivated = true
+				velocity = Vector2(0, 0)
+			
 
 func awaitDeath():
 	await get_tree().create_timer(afterdeath).timeout
@@ -106,4 +124,5 @@ func isPos(val):
 	return 0
 
 func _on_wing_button_pressed():
+	get_parent().get_parent().setNNDisp(ID)
 	Globals.addWing(network)

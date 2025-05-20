@@ -2,15 +2,16 @@ extends Node2D
 
 const WingScene = preload("res://components/wing.tscn")
 
-@export var wingPos = Vector2()
-
-func _ready():
-	pass
+@export var wingPos = Vector2(500, 300)
 
 
-func _process(delta):
-	pass
-
+func setNNDisp(ID):
+	print("Disp set: " + str(ID))
+	for wing in $Wings.get_children():
+		if wing.ID == ID:
+			wing.DisplayNN = true
+		else:
+			wing.DisplayNN = false
 
 func _on_new_population_pressed():
 	for child in $Wings.get_children():
@@ -53,3 +54,5 @@ func _on_crossover_pressed():
 
 func _on_play_pause_pressed():
 	Globals.paused = not Globals.paused
+	$PlayPause2/play.visible = Globals.paused
+	$PlayPause2/pause.visible = not Globals.paused

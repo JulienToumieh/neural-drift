@@ -3,6 +3,10 @@ extends Node
 var parents = []
 var paused = false
 
+var hue = 0.0
+
+var NNDispID = -1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for i in range(5):
