@@ -19,7 +19,7 @@ height = 18.0
 radius = 6.0
 
 [node name="Wing" type="CharacterBody2D"]
-collision_layer = 0
+collision_layer = 2
 script = ExtResource("1_qrhk2")
 
 [node name="Wing" type="Sprite2D" parent="."]

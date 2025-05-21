@@ -8,6 +8,7 @@ var wallThrust = 2.5
 var deactivated = false
 var afterdeath = 20.0
 
+var score = 0
 
 @export var color = Color("#FFFFFF")
 @export var playable = false
@@ -68,7 +69,6 @@ func _physics_process(delta):
 		var inputs = [distance1, distance2, distance3, distance4, distance5]
 		
 		if DisplayNN:
-			print(ID)
 			get_parent().get_parent().get_node("NnDisplay").forwardPass(network, inputs)
 		
 		var output = GANN.forwardPass(network, inputs)
@@ -100,9 +100,10 @@ func _physics_process(delta):
 	
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		if collision.get_collider() is StaticBody2D: # and not playable:
+		var collider = collision.get_collider()
+		
+		if collider is StaticBody2D:
 			var collision_normal = collision.get_normal().rotated(-rotation)
-			
 			
 			if collision_normal.y > 0:
 				deactivated = true
