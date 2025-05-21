@@ -4,7 +4,7 @@ extends Node2D
 var layers = [0, 0, 0] 
 
 func _ready():
-	network = GANN.generateRandomNN(5, 8, 3)
+	network = GANN.generateRandomNN(5, 6, 3)
 	layers = [network["input_to_hidden"].size(), network["hidden_bias"].size(), network["output_bias"].size()]
 	
 	for i in range(layers.size()):
@@ -15,12 +15,7 @@ func _ready():
 		for j in range(layers[i]):
 			var sprite = Sprite2D.new()
 			sprite.texture = load("res://assets/circle.png")
-			
-			var centerBias = 0
-			if i == 0:
-				centerBias = 1.5
-			elif i == 2:
-				centerBias = 2.5
+			var centerBias = (layers[1] - layers[i]) / 2.0
 			
 			sprite.position = Vector2(90 * i, (50 * j) + centerBias * 50)
 			sprite.scale = Vector2(0.1, 0.1)
@@ -48,7 +43,7 @@ func _ready():
 				
 				var line = Line2D.new()
 				line.width = 2
-				line.default_color = Color(1, 1, 0) 
+				line.default_color = Color(1, 1, 1) 
 				line.points = [neuron1.position, neuron2.position] 
 				line.name = "Line" + str(k + 1)
 				NLC.add_child(line)
@@ -99,7 +94,7 @@ func forwardPass(network, input):
 		outputOut.append(sigmoid(sum))
 	
 	for i in range(outputOut.size()):
-		layer3.get_node("Neuron" + str(i + 1)).modulate.a = outputOut[i]
+		layer3.get_node("Neuron" + str(i + 1)).modulate.a = outputOut[i] #int(outputOut[i] > 0.5)
 	
 
 func sigmoid(x: float) -> float:

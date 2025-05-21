@@ -23,7 +23,7 @@ func _ready():
 	if not playable:
 		changeColor(generate_light_vibrant_color())
 		if network.is_empty():
-			network = GANN.generateRandomNN(5, 8, 3)
+			network = GANN.generateRandomNN(5, 6, 3)
 			
 
 func generate_light_vibrant_color() -> Color:
@@ -124,5 +124,6 @@ func isPos(val):
 	return 0
 
 func _on_wing_button_pressed():
-	get_parent().get_parent().setNNDisp(ID)
+	if not playable:
+		get_parent().get_parent().setNNDisp(ID)
 	Globals.addWing(network)

@@ -178,7 +178,7 @@ offset_left = 24.0
 offset_top = 8.0
 offset_right = 72.0
 offset_bottom = 43.0
-text = "100"
+text = "50"
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Population"]
@@ -311,7 +311,7 @@ scale = Vector2(0.0473773, 0.0473773)
 texture = ExtResource("6_m2yt8")
 
 [node name="NnDisplay" parent="." instance=ExtResource("7_7rpjq")]
-position = Vector2(704, 8)
+position = Vector2(704, 40)
 
 [connection signal="pressed" from="NewPopulation/NewPopulation" to="." method="_on_new_population_pressed"]
 [connection signal="pressed" from="Mutate/Mutate" to="." method="_on_mutate_pressed"]
