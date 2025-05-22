@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://co1bhjljiue8n"]
 
 [ext_resource type="Texture2D" uid="uid://5vdo66i205pu" path="res://assets/tracks/track1inner.png" id="1_4w7m1"]
-[ext_resource type="Texture2D" uid="uid://lq1ro8uaycri" path="res://assets/1px.png" id="1_x6ibg"]
 [ext_resource type="Texture2D" uid="uid://bfo5l0fw3m0vm" path="res://assets/tracks/track1outer.png" id="2_wf5vu"]
+[ext_resource type="Script" uid="uid://y7p6cge7j6u8" path="res://tracks/track_images.gd" id="4_op3a2"]
 [ext_resource type="PackedScene" uid="uid://3t2yxk3tbgub" path="res://components/genetic_controller.tscn" id="4_vqsel"]
 [ext_resource type="Texture2D" uid="uid://cgfhrwofnnu4e" path="res://assets/wing.png" id="4_x6ibg"]
 [ext_resource type="PackedScene" uid="uid://dtagyj4ns0d3a" path="res://components/wing.tscn" id="6_sawpj"]
@@ -13,12 +13,6 @@ a = Vector2(-48, 0)
 b = Vector2(48, 0)
 
 [node name="Track1" type="Node2D"]
-
-[node name="1Px" type="Sprite2D" parent="."]
-modulate = Color(0.110728, 0.0484312, 0.0874603, 1)
-position = Vector2(640, 360)
-scale = Vector2(1280, 720)
-texture = ExtResource("1_x6ibg")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(88, 16)
@@ -49,6 +43,8 @@ position = Vector2(400, 408)
 playable = true
 
 [node name="TrackImages" type="Node2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+script = ExtResource("4_op3a2")
 
 [node name="Track1Inner" type="Sprite2D" parent="TrackImages"]
 position = Vector2(728, 376)
@@ -270,7 +266,7 @@ metadata/_edit_group_ = true
 shape = SubResource("SegmentShape2D_sawpj")
 
 [node name="Check18" type="Area2D" parent="CheckPoints"]
-position = Vector2(1152, 488)
+position = Vector2(1152, 504)
 collision_layer = 2
 collision_mask = 2
 metadata/_edit_group_ = true
@@ -445,4 +441,22 @@ collision_mask = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/Check39"]
+shape = SubResource("SegmentShape2D_sawpj")
+
+[node name="Check40" type="Area2D" parent="CheckPoints"]
+position = Vector2(1152, 408)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/Check40"]
+shape = SubResource("SegmentShape2D_sawpj")
+
+[node name="Check41" type="Area2D" parent="CheckPoints"]
+position = Vector2(1152, 296)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/Check41"]
 shape = SubResource("SegmentShape2D_sawpj")

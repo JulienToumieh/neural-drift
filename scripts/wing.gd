@@ -105,7 +105,7 @@ func _physics_process(delta):
 		if collider is StaticBody2D:
 			var collision_normal = collision.get_normal().rotated(-rotation)
 			
-			if collision_normal.y > 0:
+			if collision_normal.y > 0 and not playable:
 				deactivated = true
 				velocity = Vector2(0, 0)
 			
@@ -127,4 +127,5 @@ func isPos(val):
 func _on_wing_button_pressed():
 	if not playable:
 		get_parent().get_parent().setNNDisp(ID)
-	Globals.addWing(network)
+		Globals.saveWing(network)
+		Globals.addWing(network)

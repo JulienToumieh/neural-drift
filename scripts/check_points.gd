@@ -10,3 +10,5 @@ func _ready():
 func _on_area_body_entered(body):
 	if body is CharacterBody2D:
 		body.score += 1
+		if not body.playable:
+			Globals.wingScores[body.ID] = body.score

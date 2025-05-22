@@ -63,7 +63,6 @@ func forwardPass(network, input):
 		layer1.get_node("Neuron" + str(i + 1)).modulate.a = input[i]
 	
 	
-	
 	var hiddenOut = []
 	for i in range(network["hidden_bias"].size()):
 		var sum = 0.0
@@ -78,7 +77,6 @@ func forwardPass(network, input):
 	
 	for i in range(hiddenOut.size()):
 		layer2.get_node("Neuron" + str(i + 1)).modulate.a = hiddenOut[i]
-	
 	
 	
 	var outputOut = []

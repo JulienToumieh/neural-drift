@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://d37wi65b1ujtk"]
+[gd_scene load_steps=3 format=3 uid="uid://d37wi65b1ujtk"]
 
 [ext_resource type="Script" uid="uid://dtknvu5oawhfq" path="res://scripts/nn_display.gd" id="1_1ids1"]
+[ext_resource type="Texture2D" uid="uid://lq1ro8uaycri" path="res://assets/1px.png" id="2_l0his"]
 
 [node name="NnDisplay" type="Node2D"]
+modulate = Color(0, 0.910932, 0.929274, 1)
 script = ExtResource("1_1ids1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.815686)
+position = Vector2(88, 124)
+scale = Vector2(224, 296)
+texture = ExtResource("2_l0his")

@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://3t2yxk3tbgub"]
+[gd_scene load_steps=21 format=3 uid="uid://3t2yxk3tbgub"]
 
 [ext_resource type="Script" uid="uid://dxfti1w5pyuwf" path="res://scripts/genetic_controller.gd" id="1_7hmms"]
 [ext_resource type="Texture2D" uid="uid://b7hoqahlevqye" path="res://assets/mutate.png" id="1_e327o"]
 [ext_resource type="Texture2D" uid="uid://cvb1u3ok4baiv" path="res://assets/crossover.png" id="2_4tp7o"]
 [ext_resource type="Texture2D" uid="uid://vth1x5mmqxae" path="res://assets/newpopulation.png" id="2_by4p7"]
+[ext_resource type="Texture2D" uid="uid://lq1ro8uaycri" path="res://assets/1px.png" id="2_kgqup"]
+[ext_resource type="Texture2D" uid="uid://ds5rtlmiaegu2" path="res://assets/bglines.png" id="2_ux1xd"]
 [ext_resource type="Texture2D" uid="uid://oquafljkjucv" path="res://assets/play.png" id="5_210wd"]
 [ext_resource type="Texture2D" uid="uid://hqognhpsj7tw" path="res://assets/pause.png" id="6_m2yt8"]
 [ext_resource type="PackedScene" uid="uid://d37wi65b1ujtk" path="res://components/nn_display.tscn" id="7_7rpjq"]
@@ -32,6 +34,27 @@
 
 [node name="GeneticController" type="Node2D"]
 script = ExtResource("1_7hmms")
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.05, 0.0075, 0.0075, 1)
+position = Vector2(639.75, 359.75)
+scale = Vector2(1280.5, 720.5)
+texture = ExtResource("2_kgqup")
+
+[node name="BGLines" type="Parallax2D" parent="."]
+modulate = Color(0.15, 0.021, 0.021, 1)
+repeat_size = Vector2(200, 200)
+repeat_times = 6
+
+[node name="Bglines" type="Sprite2D" parent="BGLines"]
+position = Vector2(656, 360)
+texture = ExtResource("2_ux1xd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.698039)
+position = Vector2(91.75, 359.75)
+scale = Vector2(184.5, 720.5)
+texture = ExtResource("2_kgqup")
 
 [node name="NewPopulation" type="Control" parent="."]
 layout_mode = 3
@@ -285,9 +308,9 @@ text = "Crossover Blend"
 [node name="PlayPause2" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 56.0
+offset_left = 32.0
 offset_top = 608.0
-offset_right = 120.0
+offset_right = 96.0
 offset_bottom = 672.0
 metadata/_edit_group_ = true
 
@@ -311,9 +334,36 @@ scale = Vector2(0.0473773, 0.0473773)
 texture = ExtResource("6_m2yt8")
 
 [node name="NnDisplay" parent="." instance=ExtResource("7_7rpjq")]
-position = Vector2(704, 40)
+z_index = 1
+position = Vector2(1080, 448)
+
+[node name="AutoGenButton" type="Button" parent="."]
+offset_left = 104.0
+offset_top = 624.0
+offset_right = 160.0
+offset_bottom = 656.0
+toggle_mode = true
+text = "Auto"
+
+[node name="LoadWingButton" type="Button" parent="."]
+offset_left = 1176.0
+offset_top = 16.0
+offset_right = 1265.0
+offset_bottom = 56.0
+text = "Load Wing"
+
+[node name="GenTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="CheckTimer" type="Timer" parent="."]
+wait_time = 2.0
 
 [connection signal="pressed" from="NewPopulation/NewPopulation" to="." method="_on_new_population_pressed"]
 [connection signal="pressed" from="Mutate/Mutate" to="." method="_on_mutate_pressed"]
 [connection signal="pressed" from="Crossover/Crossover" to="." method="_on_crossover_pressed"]
 [connection signal="pressed" from="PlayPause2/PlayPause" to="." method="_on_play_pause_pressed"]
+[connection signal="toggled" from="AutoGenButton" to="." method="_on_auto_gen_button_toggled"]
+[connection signal="pressed" from="LoadWingButton" to="." method="_on_load_wing_button_pressed"]
+[connection signal="timeout" from="GenTimer" to="." method="_on_gen_timer_timeout"]
+[connection signal="timeout" from="CheckTimer" to="." method="_on_check_timer_timeout"]
