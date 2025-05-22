@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://3t2yxk3tbgub"]
+[gd_scene load_steps=28 format=3 uid="uid://3t2yxk3tbgub"]
 
 [ext_resource type="Script" uid="uid://dxfti1w5pyuwf" path="res://scripts/genetic_controller.gd" id="1_7hmms"]
 [ext_resource type="Texture2D" uid="uid://b7hoqahlevqye" path="res://assets/mutate.png" id="1_e327o"]
@@ -32,6 +32,33 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t0esg"]
 
+[sub_resource type="Animation" id="Animation_r0jk4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.15, 0.15, 0.15, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGLines/Bglines:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(656, 360)]
+}
+
 [sub_resource type="Animation" id="Animation_kgqup"]
 resource_name = "pulse_bg"
 length = 0.6
@@ -48,25 +75,48 @@ tracks/0/keys = {
 "values": [Color(0.15, 0.15, 0.15, 1), Color(0.37, 0.37, 0.37, 1), Color(0.15, 0.15, 0.15, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_r0jk4"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_12qjl"]
+_data = {
+&"RESET": SubResource("Animation_r0jk4"),
+&"pulse_bg": SubResource("Animation_kgqup")
+}
+
+[sub_resource type="Animation" id="Animation_12qjl"]
+resource_name = "bg_move"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.3, 9.66667, 14.9667, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(656, 360), Vector2(688, 328), Vector2(592, 304), Vector2(680, 400), Vector2(656, 360)]
+}
+
+[sub_resource type="Animation" id="Animation_napn6"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BGLines/Bglines:modulate")
+tracks/0/path = NodePath("BGLines/Bglines:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.15, 0.15, 0.15, 1)]
+"values": [Vector2(656, 360)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_12qjl"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t0esg"]
 _data = {
-&"RESET": SubResource("Animation_r0jk4"),
-&"pulse_bg": SubResource("Animation_kgqup")
+&"RESET": SubResource("Animation_napn6"),
+&"bg_move": SubResource("Animation_12qjl")
 }
 
 [sub_resource type="Environment" id="Environment_kgqup"]
@@ -408,6 +458,12 @@ wait_time = 2.0
 libraries = {
 &"": SubResource("AnimationLibrary_12qjl")
 }
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t0esg")
+}
+autoplay = "bg_move"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_kgqup")
