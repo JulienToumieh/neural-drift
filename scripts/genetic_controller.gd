@@ -17,6 +17,8 @@ func setNNDisp(ID):
 func _on_new_population_pressed():
 	Globals.resetScores(int($Population/Population.text))
 	
+	$AnimationPlayer.play("pulse_bg")
+	
 	for child in $Wings.get_children():
 		$Wings.remove_child(child)
 		child.queue_free()
@@ -30,6 +32,8 @@ func _on_new_population_pressed():
 
 func _on_mutate_pressed():
 	Globals.resetScores(int($Population/Population.text))
+	
+	$AnimationPlayer.play("pulse_bg")
 	
 	for child in $Wings.get_children():
 		$Wings.remove_child(child)
@@ -46,6 +50,8 @@ func _on_mutate_pressed():
 
 func _on_crossover_pressed():
 	Globals.resetScores(int($Population/Population.text))
+	
+	$AnimationPlayer.play("pulse_bg")
 	
 	for child in $Wings.get_children():
 		$Wings.remove_child(child)

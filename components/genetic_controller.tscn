@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://3t2yxk3tbgub"]
+[gd_scene load_steps=25 format=3 uid="uid://3t2yxk3tbgub"]
 
 [ext_resource type="Script" uid="uid://dxfti1w5pyuwf" path="res://scripts/genetic_controller.gd" id="1_7hmms"]
 [ext_resource type="Texture2D" uid="uid://b7hoqahlevqye" path="res://assets/mutate.png" id="1_e327o"]
@@ -32,6 +32,50 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t0esg"]
 
+[sub_resource type="Animation" id="Animation_kgqup"]
+resource_name = "pulse_bg"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.6),
+"transitions": PackedFloat32Array(1, 0.353554, 1),
+"update": 0,
+"values": [Color(0.15, 0.15, 0.15, 1), Color(0.37, 0.37, 0.37, 1), Color(0.15, 0.15, 0.15, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_r0jk4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.15, 0.15, 0.15, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_12qjl"]
+_data = {
+&"RESET": SubResource("Animation_r0jk4"),
+&"pulse_bg": SubResource("Animation_kgqup")
+}
+
+[sub_resource type="Environment" id="Environment_kgqup"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 3.53
+glow_strength = 0.89
+glow_bloom = 0.45
+
 [node name="GeneticController" type="Node2D"]
 script = ExtResource("1_7hmms")
 
@@ -42,11 +86,12 @@ scale = Vector2(1280.5, 720.5)
 texture = ExtResource("2_kgqup")
 
 [node name="BGLines" type="Parallax2D" parent="."]
-modulate = Color(0.15, 0.021, 0.021, 1)
+modulate = Color(1, 0.14, 0.14, 1)
 repeat_size = Vector2(200, 200)
 repeat_times = 6
 
 [node name="Bglines" type="Sprite2D" parent="BGLines"]
+modulate = Color(0.15, 0.15, 0.15, 1)
 position = Vector2(656, 360)
 texture = ExtResource("2_ux1xd")
 
@@ -237,7 +282,7 @@ offset_right = 352.0
 offset_bottom = 40.0
 max_value = 1.0
 step = 0.01
-value = 0.03
+value = 0.3
 
 [node name="Label" type="Label" parent="Parameters"]
 layout_mode = 0
@@ -275,7 +320,7 @@ offset_right = 168.0
 offset_bottom = 40.0
 max_value = 1.0
 step = 0.01
-value = 0.3
+value = 0.5
 
 [node name="Label3" type="Label" parent="Parameters"]
 layout_mode = 0
@@ -293,7 +338,7 @@ offset_right = 168.0
 offset_bottom = 104.0
 max_value = 1.0
 step = 0.01
-value = 0.4
+value = 0.5
 
 [node name="Label4" type="Label" parent="Parameters"]
 layout_mode = 0
@@ -358,6 +403,14 @@ one_shot = true
 
 [node name="CheckTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_12qjl")
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kgqup")
 
 [connection signal="pressed" from="NewPopulation/NewPopulation" to="." method="_on_new_population_pressed"]
 [connection signal="pressed" from="Mutate/Mutate" to="." method="_on_mutate_pressed"]
