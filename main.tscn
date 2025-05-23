@@ -1,16 +1,196 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfk7dba5d2jbl"]
+[gd_scene load_steps=17 format=3 uid="uid://cfk7dba5d2jbl"]
 
 [ext_resource type="Shader" uid="uid://65vvgjwyq1aq" path="res://pixelate.gdshader" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://02ucb7oaonye" path="res://main.gd" id="1_lquwl"]
+[ext_resource type="Texture2D" uid="uid://lq1ro8uaycri" path="res://assets/1px.png" id="3_7mycd"]
+[ext_resource type="Texture2D" uid="uid://ds5rtlmiaegu2" path="res://assets/bglines.png" id="4_272bh"]
+[ext_resource type="Texture2D" uid="uid://oquafljkjucv" path="res://assets/play.png" id="5_5vw27"]
+[ext_resource type="Texture2D" uid="uid://bfo5l0fw3m0vm" path="res://assets/tracks/track1outer.png" id="6_efxa6"]
+[ext_resource type="Texture2D" uid="uid://5vdo66i205pu" path="res://assets/tracks/track1inner.png" id="7_dg77c"]
+[ext_resource type="Texture2D" uid="uid://ddc5gahatybsa" path="res://assets/tracks/track2outer.png" id="8_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://cedb82i3n73tc" path="res://assets/tracks/track2inner.png" id="9_w48qg"]
+[ext_resource type="Texture2D" uid="uid://c7x7gcfsaew5l" path="res://assets/tracks/track3outer.png" id="10_vivmo"]
+[ext_resource type="Texture2D" uid="uid://21kph0e74l2i" path="res://assets/tracks/track3inner.png" id="11_2cqfq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm2m"]
 shader = ExtResource("1_0xm2m")
 shader_parameter/pixel_size = 2
 shader_parameter/screen_size = Vector2(1280, 720)
 
+[sub_resource type="Animation" id="Animation_napn6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(656, 360)]
+}
+
+[sub_resource type="Animation" id="Animation_12qjl"]
+resource_name = "bg_move"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.3, 9.66667, 14.9667, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(656, 360), Vector2(688, 328), Vector2(592, 304), Vector2(680, 400), Vector2(656, 360)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t0esg"]
+_data = {
+&"RESET": SubResource("Animation_napn6"),
+&"bg_move": SubResource("Animation_12qjl")
+}
+
+[sub_resource type="Environment" id="Environment_yaehf"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 3.53
+glow_strength = 0.89
+glow_bloom = 0.45
+
 [node name="Main" type="Node2D"]
+script = ExtResource("1_lquwl")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_0xm2m")
 offset_right = 1280.0
 offset_bottom = 720.0
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.05, 0.0075, 0.0075, 1)
+position = Vector2(639.75, 359.75)
+scale = Vector2(1280.5, 720.5)
+texture = ExtResource("3_7mycd")
+
+[node name="BGLines" type="Parallax2D" parent="."]
+modulate = Color(1, 0.14, 0.14, 1)
+repeat_size = Vector2(200, 200)
+repeat_times = 6
+
+[node name="Bglines" type="Sprite2D" parent="BGLines"]
+modulate = Color(0.15, 0.15, 0.15, 1)
+position = Vector2(656, 360)
+texture = ExtResource("4_272bh")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t0esg")
+}
+autoplay = "bg_move"
+
+[node name="Controls" type="Node2D" parent="."]
+
+[node name="Play" type="Sprite2D" parent="Controls"]
+position = Vector2(840, 160)
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("5_5vw27")
+
+[node name="Play2" type="Sprite2D" parent="Controls"]
+position = Vector2(440, 160)
+rotation = -3.14159
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("5_5vw27")
+
+[node name="NextTrackBtn" type="Button" parent="Controls"]
+offset_left = 816.0
+offset_top = 136.0
+offset_right = 864.0
+offset_bottom = 184.0
+flat = true
+
+[node name="PrevTrackBtn" type="Button" parent="Controls"]
+offset_left = 416.0
+offset_top = 136.0
+offset_right = 464.0
+offset_bottom = 184.0
+flat = true
+
+[node name="TrackLbl" type="Label" parent="Controls"]
+offset_left = 488.0
+offset_top = 112.0
+offset_right = 792.0
+offset_bottom = 208.0
+theme_override_font_sizes/font_size = 60
+text = "Level I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Controls"]
+offset_left = 480.0
+offset_top = 528.0
+offset_right = 800.0
+offset_bottom = 624.0
+pivot_offset = Vector2(160, 48)
+theme_override_font_sizes/font_size = 60
+text = "Start!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartBtn" type="Button" parent="Controls"]
+offset_left = 480.0
+offset_top = 528.0
+offset_right = 800.0
+offset_bottom = 624.0
+flat = true
+
+[node name="TrackImages" type="Node2D" parent="."]
+
+[node name="Track1" type="Node2D" parent="TrackImages"]
+position = Vector2(656, 368)
+metadata/_edit_group_ = true
+
+[node name="Track1Outer" type="Sprite2D" parent="TrackImages/Track1"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("6_efxa6")
+
+[node name="Track1Inner" type="Sprite2D" parent="TrackImages/Track1"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_dg77c")
+
+[node name="Track2" type="Node2D" parent="TrackImages"]
+visible = false
+position = Vector2(656, 368)
+metadata/_edit_group_ = true
+
+[node name="Track2Outer" type="Sprite2D" parent="TrackImages/Track2"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_ycdy4")
+
+[node name="Track2Inner" type="Sprite2D" parent="TrackImages/Track2"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("9_w48qg")
+
+[node name="Track3" type="Node2D" parent="TrackImages"]
+visible = false
+position = Vector2(656, 368)
+metadata/_edit_group_ = true
+
+[node name="Track3Outer" type="Sprite2D" parent="TrackImages/Track3"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("10_vivmo")
+
+[node name="Track3Inner" type="Sprite2D" parent="TrackImages/Track3"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("11_2cqfq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yaehf")
+
+[connection signal="pressed" from="Controls/NextTrackBtn" to="." method="_on_next_track_btn_pressed"]
+[connection signal="pressed" from="Controls/PrevTrackBtn" to="." method="_on_prev_track_btn_pressed"]
+[connection signal="pressed" from="Controls/StartBtn" to="." method="_on_start_btn_pressed"]

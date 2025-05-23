@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const speed = 22.0
-var rotation_speed = 0.07
+var rotation_speed = 0.1
 var friction = 0.9
 var wallThrust = 2.5
 

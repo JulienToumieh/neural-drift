@@ -1,6 +1,7 @@
 extends Node2D
 
 const WingScene = preload("res://components/wing.tscn")
+var main_menu = load("res://main.tscn")
 
 @export var wingPos = Vector2(500, 300)
 
@@ -138,4 +139,13 @@ func _process(delta):
 		$NnDisplay.visible = Globals.toggleDetails
 
 func _ready():
+	$NnDisplay.visible = Globals.toggleDetails
+
+
+func _on_exit_btn_pressed():
+	get_tree().change_scene_to_packed(main_menu)
+
+
+func _on_show_details_btn_pressed():
+	Globals.toggleDetails = not Globals.toggleDetails
 	$NnDisplay.visible = Globals.toggleDetails

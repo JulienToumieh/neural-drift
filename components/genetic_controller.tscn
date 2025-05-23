@@ -81,6 +81,21 @@ _data = {
 &"pulse_bg": SubResource("Animation_kgqup")
 }
 
+[sub_resource type="Animation" id="Animation_napn6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(656, 360)]
+}
+
 [sub_resource type="Animation" id="Animation_12qjl"]
 resource_name = "bg_move"
 length = 20.0
@@ -96,21 +111,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(656, 360), Vector2(688, 328), Vector2(592, 304), Vector2(680, 400), Vector2(656, 360)]
-}
-
-[sub_resource type="Animation" id="Animation_napn6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BGLines/Bglines:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(656, 360)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t0esg"]
@@ -441,9 +441,9 @@ toggle_mode = true
 text = "Auto"
 
 [node name="LoadWingButton" type="Button" parent="."]
-offset_left = 1176.0
+offset_left = 1096.0
 offset_top = 16.0
-offset_right = 1265.0
+offset_right = 1185.0
 offset_bottom = 56.0
 text = "Load Wing"
 
@@ -468,6 +468,20 @@ autoplay = "bg_move"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_kgqup")
 
+[node name="ExitBtn" type="Button" parent="."]
+offset_left = 1200.0
+offset_top = 16.0
+offset_right = 1264.0
+offset_bottom = 56.0
+text = "Exit"
+
+[node name="ShowDetailsBtn" type="Button" parent="."]
+offset_left = 960.0
+offset_top = 16.0
+offset_right = 1080.0
+offset_bottom = 56.0
+text = "Show Details"
+
 [connection signal="pressed" from="NewPopulation/NewPopulation" to="." method="_on_new_population_pressed"]
 [connection signal="pressed" from="Mutate/Mutate" to="." method="_on_mutate_pressed"]
 [connection signal="pressed" from="Crossover/Crossover" to="." method="_on_crossover_pressed"]
@@ -476,3 +490,5 @@ environment = SubResource("Environment_kgqup")
 [connection signal="pressed" from="LoadWingButton" to="." method="_on_load_wing_button_pressed"]
 [connection signal="timeout" from="GenTimer" to="." method="_on_gen_timer_timeout"]
 [connection signal="timeout" from="CheckTimer" to="." method="_on_check_timer_timeout"]
+[connection signal="pressed" from="ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="ShowDetailsBtn" to="." method="_on_show_details_btn_pressed"]
