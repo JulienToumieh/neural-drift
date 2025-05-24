@@ -10,6 +10,7 @@ var afterdeath = 20.0
 
 var score = 0
 
+@export var isParent = false
 @export var color = Color("#FFFFFF")
 @export var playable = false
 @export var network = {}
@@ -23,6 +24,10 @@ func _ready():
 	changeColor(color)
 	if not playable:
 		changeColor(generate_light_vibrant_color())
+		
+		if isParent:
+			$WingCore.visible = false
+		
 		if network.is_empty():
 			network = GANN.generateRandomNN(5, 6, 3)
 			

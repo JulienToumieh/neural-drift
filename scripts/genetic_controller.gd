@@ -39,8 +39,17 @@ func _on_mutate_pressed():
 	for child in $Wings.get_children():
 		$Wings.remove_child(child)
 		child.queue_free()
+		
 	
-	for i in range(int($Population/Population.text)):
+	for i in range(2):
+		var wing = WingScene.instantiate()
+		wing.position = wingPos
+		wing.network = Globals.parents[i]
+		wing.ID = (int($Population/Population.text) - 2) + i
+		wing.isParent = true
+		$Wings.add_child(wing)
+	
+	for i in range(int($Population/Population.text) - 2):
 		var wing = WingScene.instantiate()
 		wing.position = wingPos
 		wing.network = GANN.mutateNetwork(Globals.parents[0], $Parameters/MutationRateSlider.value, $Parameters/MutationStrengthSlider.value)
@@ -57,6 +66,14 @@ func _on_crossover_pressed():
 	for child in $Wings.get_children():
 		$Wings.remove_child(child)
 		child.queue_free()
+	
+	for i in range(2):
+		var wing = WingScene.instantiate()
+		wing.position = wingPos
+		wing.network = Globals.parents[i]
+		wing.ID = (int($Population/Population.text) - 2) + i
+		wing.isParent = true
+		$Wings.add_child(wing)
 	
 	for i in range(int($Population/Population.text)):
 		var wing = WingScene.instantiate()
@@ -76,8 +93,9 @@ func _on_load_wing_button_pressed():
 	Globals.loadWing()
 
 func _on_auto_gen_button_toggled(toggled_on):
-	autoGen = true
-	startGen()
+	autoGen = toggled_on
+	if autoGen:
+		startGen()
 
 func findHighestScore():
 	var scores = Globals.wingScores.duplicate(true)
