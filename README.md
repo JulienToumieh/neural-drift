@@ -1,2 +1,2 @@
-# genetic-drifters
+# Genetic Drift
 
