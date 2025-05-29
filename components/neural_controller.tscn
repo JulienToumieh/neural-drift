@@ -1,0 +1,385 @@
+[gd_scene load_steps=28 format=3 uid="uid://cs4abb3armyjm"]
+
+[ext_resource type="Script" uid="uid://ctnsbhsg78yfa" path="res://scripts/neural_controller.gd" id="1_yfs5r"]
+[ext_resource type="Texture2D" uid="uid://lq1ro8uaycri" path="res://assets/1px.png" id="2_4citv"]
+[ext_resource type="Texture2D" uid="uid://ds5rtlmiaegu2" path="res://assets/bglines.png" id="3_wpf7t"]
+[ext_resource type="Texture2D" uid="uid://k3n7uila8v7k" path="res://assets/resetnn.png" id="4_yfs5r"]
+[ext_resource type="Texture2D" uid="uid://bah0d7xupadm7" path="res://assets/neuralnet.png" id="5_xx7vk"]
+[ext_resource type="Texture2D" uid="uid://oquafljkjucv" path="res://assets/play.png" id="7_fgc24"]
+[ext_resource type="Texture2D" uid="uid://hqognhpsj7tw" path="res://assets/pause.png" id="8_yqyuv"]
+[ext_resource type="PackedScene" uid="uid://d37wi65b1ujtk" path="res://components/nn_display.tscn" id="9_ny8fb"]
+[ext_resource type="PackedScene" uid="uid://dtagyj4ns0d3a" path="res://components/wing.tscn" id="9_xx7vk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7hmms"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_by4p7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_210wd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m2yt8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7rpjq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ux1xd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgqup"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r0jk4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12qjl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_napn6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t0esg"]
+
+[sub_resource type="Animation" id="Animation_r0jk4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.15, 0.15, 0.15, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGLines/Bglines:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(656, 360)]
+}
+
+[sub_resource type="Animation" id="Animation_kgqup"]
+resource_name = "pulse_bg"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.6),
+"transitions": PackedFloat32Array(1, 0.353554, 1),
+"update": 0,
+"values": [Color(0.15, 0.15, 0.15, 1), Color(0.37, 0.37, 0.37, 1), Color(0.15, 0.15, 0.15, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_12qjl"]
+_data = {
+&"RESET": SubResource("Animation_r0jk4"),
+&"pulse_bg": SubResource("Animation_kgqup")
+}
+
+[sub_resource type="Animation" id="Animation_napn6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(656, 360)]
+}
+
+[sub_resource type="Animation" id="Animation_12qjl"]
+resource_name = "bg_move"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGLines/Bglines:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.3, 9.66667, 14.9667, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(656, 360), Vector2(688, 328), Vector2(592, 304), Vector2(680, 400), Vector2(656, 360)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t0esg"]
+_data = {
+&"RESET": SubResource("Animation_napn6"),
+&"bg_move": SubResource("Animation_12qjl")
+}
+
+[sub_resource type="Environment" id="Environment_kgqup"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 3.53
+glow_strength = 0.89
+glow_bloom = 0.45
+
+[node name="NeuralController" type="Node2D"]
+script = ExtResource("1_yfs5r")
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.05, 0.0075, 0.0075, 1)
+position = Vector2(639.75, 359.75)
+scale = Vector2(1280.5, 720.5)
+texture = ExtResource("2_4citv")
+
+[node name="BGLines" type="Parallax2D" parent="."]
+modulate = Color(1, 0.14, 0.14, 1)
+repeat_size = Vector2(200, 200)
+repeat_times = 6
+
+[node name="Bglines" type="Sprite2D" parent="BGLines"]
+modulate = Color(0.15, 0.15, 0.15, 1)
+position = Vector2(656, 360)
+texture = ExtResource("3_wpf7t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.698039)
+position = Vector2(47.75, 359.75)
+scale = Vector2(96.5, 720.5)
+texture = ExtResource("2_4citv")
+
+[node name="NewPopulation" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 88.0
+offset_bottom = 104.0
+metadata/_edit_group_ = true
+
+[node name="ResetNNBtn" type="Button" parent="NewPopulation"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7hmms")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_by4p7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_210wd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_m2yt8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7rpjq")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ux1xd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kgqup")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_r0jk4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_12qjl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_napn6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t0esg")
+flat = true
+
+[node name="Label" type="Label" parent="NewPopulation"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 80.0
+offset_bottom = 80.0
+text = "Reset"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="NewPopulation"]
+modulate = Color(0.260658, 0.6905, 0.8196, 1)
+position = Vector2(40, 24)
+scale = Vector2(0.0541455, 0.0541455)
+texture = ExtResource("4_yfs5r")
+
+[node name="Mutate" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 104.0
+offset_right = 88.0
+offset_bottom = 192.0
+
+[node name="TrainNNBtn" type="Button" parent="Mutate"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7hmms")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_by4p7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_210wd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_m2yt8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7rpjq")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ux1xd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kgqup")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_r0jk4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_12qjl")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_napn6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t0esg")
+flat = true
+
+[node name="Label" type="Label" parent="Mutate"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 80.0
+offset_bottom = 80.0
+text = "Train"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Mutate"]
+modulate = Color(1, 0.536075, 0.226002, 1)
+position = Vector2(40, 24)
+scale = Vector2(0.0541455, 0.0541455)
+texture = ExtResource("5_xx7vk")
+
+[node name="Toggled" type="Sprite2D" parent="Mutate"]
+visible = false
+modulate = Color(1, 0.385, 0.18, 0.176471)
+position = Vector2(40, 37.5)
+scale = Vector2(60, 81)
+texture = ExtResource("2_4citv")
+
+[node name="Parameters" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 568.0
+offset_right = 392.0
+offset_bottom = 625.0
+rotation = -1.5708
+metadata/_edit_group_ = true
+
+[node name="EpochsSlider" type="HSlider" parent="Parameters"]
+modulate = Color(0.996102, 0.397997, 1, 1)
+layout_mode = 0
+offset_left = 192.0
+offset_top = 24.0
+offset_right = 352.0
+offset_bottom = 40.0
+max_value = 200.0
+step = 10.0
+value = 100.0
+
+[node name="Label" type="Label" parent="Parameters"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 1.41146e-05
+offset_right = 303.0
+offset_bottom = 23.0
+text = "Epochs"
+
+[node name="LearningRateSlider" type="HSlider" parent="Parameters"]
+modulate = Color(1, 0.582142, 0.152498, 1)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 168.0
+offset_bottom = 40.0
+max_value = 0.1
+step = 0.01
+value = 0.02
+
+[node name="Label3" type="Label" parent="Parameters"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 125.0
+offset_bottom = 23.0
+text = "Learning Rate"
+
+[node name="Wings" type="Node2D" parent="."]
+position = Vector2(-8, 0)
+
+[node name="PlayPause2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 608.0
+offset_right = 88.0
+offset_bottom = 672.0
+metadata/_edit_group_ = true
+
+[node name="PlayPause" type="Button" parent="PlayPause2"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+flat = true
+
+[node name="play" type="Sprite2D" parent="PlayPause2"]
+visible = false
+modulate = Color(0, 1, 0.427451, 1)
+position = Vector2(32, 32)
+scale = Vector2(0.0473773, 0.0473773)
+texture = ExtResource("7_fgc24")
+
+[node name="pause" type="Sprite2D" parent="PlayPause2"]
+modulate = Color(0.471106, 0.471106, 0.471106, 1)
+position = Vector2(32, 32)
+scale = Vector2(0.0473773, 0.0473773)
+texture = ExtResource("8_yqyuv")
+
+[node name="NnDisplay" parent="." instance=ExtResource("9_ny8fb")]
+z_index = 1
+position = Vector2(1080, 376)
+trainingMode = true
+
+[node name="Sprite2D" parent="NnDisplay" index="0"]
+scale = Vector2(224, 440)
+
+[node name="LoadWingButton" type="Button" parent="."]
+offset_left = 1096.0
+offset_top = 16.0
+offset_right = 1185.0
+offset_bottom = 56.0
+text = "Load Wing"
+
+[node name="GenTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="CheckTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_12qjl")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t0esg")
+}
+autoplay = "bg_move"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kgqup")
+
+[node name="ExitBtn" type="Button" parent="."]
+offset_left = 1200.0
+offset_top = 16.0
+offset_right = 1264.0
+offset_bottom = 56.0
+text = "Exit"
+
+[node name="ShowDetailsBtn" type="Button" parent="."]
+offset_left = 960.0
+offset_top = 16.0
+offset_right = 1080.0
+offset_bottom = 56.0
+text = "Show Details"
+
+[node name="Wing" parent="." instance=ExtResource("9_xx7vk")]
+playable = true
+trainer = true
+trainingMode = true
+invincible = true
+
+[connection signal="pressed" from="NewPopulation/ResetNNBtn" to="." method="_on_reset_nn_btn_pressed"]
+[connection signal="pressed" from="Mutate/TrainNNBtn" to="." method="_on_train_nn_btn_pressed"]
+[connection signal="pressed" from="PlayPause2/PlayPause" to="." method="_on_play_pause_pressed"]
+[connection signal="pressed" from="LoadWingButton" to="." method="_on_load_wing_button_pressed"]
+[connection signal="timeout" from="GenTimer" to="." method="_on_gen_timer_timeout"]
+[connection signal="timeout" from="CheckTimer" to="." method="_on_check_timer_timeout"]
+[connection signal="pressed" from="ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="ShowDetailsBtn" to="." method="_on_show_details_btn_pressed"]
+
+[editable path="NnDisplay"]

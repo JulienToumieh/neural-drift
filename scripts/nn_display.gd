@@ -1,10 +1,15 @@
 extends Node2D
 
 @export var network = {}
+@export var trainingMode = false
 var layers = [0, 0, 0] 
 
 func _ready():
-	network = GANN.generateRandomNN(5, 6, 3)
+	if trainingMode:
+		network = GANN.generateRandomNN(9, 6, 3)
+	else:
+		network = GANN.generateRandomNN(5, 6, 3)
+		
 	layers = [network["input_to_hidden"].size(), network["hidden_bias"].size(), network["output_bias"].size()]
 	
 	for i in range(layers.size()):
@@ -47,9 +52,12 @@ func _ready():
 				line.points = [neuron1.position, neuron2.position] 
 				line.name = "Line" + str(k + 1)
 				NLC.add_child(line)
-				
 	
-	forwardPass(network, [0.2, 0.0, 0.8, 0.5, 1.0])
+	var randomInput = []
+	for i in range(network["input_to_hidden"].size()):
+		randomInput.append(randf())
+	
+	forwardPass(network, randomInput)
 
 
 

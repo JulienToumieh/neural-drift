@@ -152,6 +152,7 @@ flat = true
 [node name="TrackImages" type="Node2D" parent="."]
 modulate = Color(1, 0.49, 0.49, 1)
 script = ExtResource("6_dg77c")
+metadata/_edit_group_ = true
 
 [node name="Track1" type="Node2D" parent="TrackImages"]
 position = Vector2(656, 368)

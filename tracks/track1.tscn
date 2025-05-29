@@ -41,6 +41,7 @@ texture = ExtResource("4_x6ibg")
 [node name="Wing" parent="." instance=ExtResource("6_sawpj")]
 position = Vector2(400, 408)
 playable = true
+invincible = true
 
 [node name="TrackImages" type="Node2D" parent="."]
 modulate = Color(1, 0, 0, 1)

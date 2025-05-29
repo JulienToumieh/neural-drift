@@ -42,10 +42,10 @@ texture_scale = 1.5
 target_position = Vector2(0, -320)
 
 [node name="RayCast2" type="RayCast2D" parent="."]
-target_position = Vector2(-168, -256)
+target_position = Vector2(-232, -232)
 
 [node name="RayCast3" type="RayCast2D" parent="."]
-target_position = Vector2(168, -256)
+target_position = Vector2(232, -232)
 
 [node name="RayCast4" type="RayCast2D" parent="."]
 target_position = Vector2(320, 0)
@@ -102,5 +102,21 @@ visible = false
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_jc4td")
 disabled = true
+
+[node name="RayCast6" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(296, -112)
+
+[node name="RayCast7" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(-296, -112)
+
+[node name="RayCast8" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(112, -304)
+
+[node name="RayCast9" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(-112, -304)
 
 [connection signal="pressed" from="WingButton" to="." method="_on_wing_button_pressed"]

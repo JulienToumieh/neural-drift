@@ -1,13 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://yfig4yp3hl03"]
+[gd_scene load_steps=6 format=3 uid="uid://bpgu5g6cmarkg"]
 
-[ext_resource type="PackedScene" uid="uid://3t2yxk3tbgub" path="res://components/genetic_controller.tscn" id="1_qn7xh"]
-[ext_resource type="Texture2D" uid="uid://cgfhrwofnnu4e" path="res://assets/wing.png" id="2_1l3fo"]
-[ext_resource type="PackedScene" uid="uid://dtagyj4ns0d3a" path="res://components/wing.tscn" id="3_78r47"]
-[ext_resource type="Texture2D" uid="uid://cedb82i3n73tc" path="res://assets/tracks/track2inner.png" id="4_et5d4"]
-[ext_resource type="Script" uid="uid://y7p6cge7j6u8" path="res://tracks/track_images.gd" id="4_qn7xh"]
-[ext_resource type="Texture2D" uid="uid://ddc5gahatybsa" path="res://assets/tracks/track2outer.png" id="5_qn7xh"]
+[ext_resource type="PackedScene" uid="uid://cs4abb3armyjm" path="res://components/neural_controller.tscn" id="1_lmjjm"]
+[ext_resource type="Texture2D" uid="uid://cgfhrwofnnu4e" path="res://assets/wing.png" id="2_sujtu"]
+[ext_resource type="Script" uid="uid://y7p6cge7j6u8" path="res://tracks/track_images.gd" id="4_xa31m"]
+[ext_resource type="Texture2D" uid="uid://cedb82i3n73tc" path="res://assets/tracks/track2inner.png" id="5_invdt"]
+[ext_resource type="Texture2D" uid="uid://ddc5gahatybsa" path="res://assets/tracks/track2outer.png" id="6_s4q11"]
 
 [node name="Track2" type="Node2D"]
+
+[node name="NeuralController" parent="." instance=ExtResource("1_lmjjm")]
+wingPos = Vector2(400, 400)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(88, 16)
@@ -24,28 +26,20 @@ position = Vector2(640, 360)
 build_mode = 1
 polygon = PackedVector2Array(-163.1, -302, -174.3, -299, -178.2, -299, -187.2, -295, -190.3, -295, -198.2, -290, -200.3, -290, -209.3, -283, -211.5, -283, -213.5, -280, -215.4, -280, -228.4, -266, -229.6, -266, -231.6, -262, -232.6, -262, -238.6, -251, -239.7, -251, -243.7, -241, -244.8, -241, -249.8, -221, -250.9, -221, -252, -213.1, -252, 39, -253, 39, -253, 45.6, -255, 47.6, -255, 49.5, -264.4, 57, -275.6, 57, -277.6, 55, -279.5, 55, -284.5, 49, -285.2, 49, -286.2, 45, -287, 45, -287, 39, -288, 39, -288, -213.1, -291, -224.3, -291, -228.2, -295, -237.2, -295, -240.3, -303, -253.4, -303, -255.4, -310, -263.5, -310, -265.4, -324, -278.5, -324, -280, -326.6, -280, -328, -281.4, -328, -282.6, -339, -288.7, -339, -289.7, -349, -293.7, -349, -294.8, -369, -299.8, -369, -301, -404, -302, -404, -301, -410.2, -301, -427, -295, -430.3, -295, -443.3, -287, -445.4, -287, -453.5, -280, -455.4, -280, -468.4, -266, -470, -266, -470, -263.4, -471.4, -262, -472.6, -262, -478.6, -251, -479.7, -251, -483.7, -241, -484.8, -241, -487.8, -229, -488.9, -229, -490.9, -214, -492, -214, -492, 173.1, -489, 184.3, -489, 188.2, -485, 197.1, -485, 200.3, -477, 213.3, -477, 215.4, -473, 219.4, -473, 221.4, -456, 238.4, -456, 240, -453.4, 240, -452, 241.4, -452, 242.6, -441, 248.6, -441, 249.7, -431, 253.6, -431, 254.8, -419, 257.8, -419, 258.8, -403.1, 262, 343.1, 262, 354.3, 259, 358.2, 259, 367.2, 255, 370.3, 255, 378.2, 250, 380.3, 250, 389.3, 243, 391.5, 243, 393.5, 240, 395.4, 240, 408.4, 226, 410, 226, 410, 223.4, 411.4, 222, 412.6, 222, 418.6, 211, 419.7, 211, 423.7, 201, 424.8, 201, 429.8, 181, 431, 181, 431, 174, 432, 174, 432, -213.1, 429, -224.3, 429, -228.2, 425, -237.2, 425, -240.3, 417, -253.4, 417, -255.4, 413, -259.4, 413, -261.4, 396, -278.4, 396, -280, 393.4, -280, 392, -281.4, 392, -282.6, 381, -288.7, 381, -289.7, 371, -293.7, 371, -294.8, 359, -297.8, 359, -298.9, 344, -300.9, 344, -302, 316.9, -302, 305.7, -299, 301.8, -299, 292.8, -295, 289.7, -295, 276.7, -287, 274.6, -287, 266.5, -280, 264.6, -280, 251.6, -266, 250, -266, 250, -263.4, 248.6, -262, 247.4, -262, 241.4, -251, 240.3, -251, 236.3, -241, 235.2, -241, 228, -213.1, 228, 39, 227, 39, 227, 45.6, 225, 47.6, 225, 49.5, 219, 54.5, 219, 55.2, 215, 56.2, 215, 57, 204.4, 57, 202.4, 55, 200.5, 55, 195.5, 49, 194.8, 49, 193.8, 45, 193, 45, 193, 39, 192, 39, 191, -213, 191, -220.2, 185, -237, 185, -240.3, 177, -253.4, 177, -255.4, 170, -263.5, 170, -265.4, 156, -278.5, 156, -280, 153.4, -280, 152, -281.4, 152, -282.6, 141, -288.7, 141, -289.7, 131, -293.7, 131, -294.8, 119, -297.8, 119, -298.9, 104, -300.9, 104, -302, 77, -301, 69.8, -301, 53, -295, 49.7, -295, 36.7, -287, 34.6, -287, 30.6, -283, 28.6, -283, 11.6, -266, 10, -266, 10, -263.4, 8.59998, -262, 7.40002, -262, 1.40002, -251, 0.299988, -251, -3.70001, -241, -4.79999, -241, -7.79999, -229, -8.79999, -229, -12, -213.1, -12, 39, -13, 39, -13, 45.6, -15, 47.6, -15, 49.5, -24.4, 57, -35.6, 57, -37.6, 55, -39.5, 55, -44.5, 49, -45.2, 49, -46.2, 45, -47, 45, -47, 39, -48, 39, -48, -213.1, -51, -224.3, -51, -228.2, -55, -237.2, -55, -240.3, -63, -253.4, -63, -255.4, -70, -263.5, -70, -265.4, -84, -278.5, -84, -280, -86.6, -280, -88, -281.4, -88, -282.6, -99, -288.7, -99, -289.7, -109, -293.7, -109, -294.8, -136.9, -302)
 
-[node name="GeneticController" parent="." instance=ExtResource("1_qn7xh")]
-wingPos = Vector2(400, 408)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(400, 408)
 scale = Vector2(0.03, 0.028)
-texture = ExtResource("2_1l3fo")
-
-[node name="Wing" parent="." instance=ExtResource("3_78r47")]
-position = Vector2(400, 408)
-playable = true
-invincible = true
+texture = ExtResource("2_sujtu")
 
 [node name="TrackImages" type="Node2D" parent="."]
 modulate = Color(1, 0, 0, 1)
-script = ExtResource("4_qn7xh")
+script = ExtResource("4_xa31m")
 
 [node name="Track2Inner" type="Sprite2D" parent="TrackImages"]
 position = Vector2(728, 376)
-texture = ExtResource("4_et5d4")
+texture = ExtResource("5_invdt")
 
 [node name="Track2Outer" type="Sprite2D" parent="TrackImages"]
 position = Vector2(728, 376)
-texture = ExtResource("5_qn7xh")
+texture = ExtResource("6_s4q11")
