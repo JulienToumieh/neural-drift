@@ -361,11 +361,18 @@ offset_bottom = 56.0
 text = "Exit"
 
 [node name="ShowDetailsBtn" type="Button" parent="."]
-offset_left = 960.0
+offset_left = 808.0
+offset_top = 16.0
+offset_right = 928.0
+offset_bottom = 56.0
+text = "Show Details"
+
+[node name="TrainFromDataBtn" type="Button" parent="."]
+offset_left = 944.0
 offset_top = 16.0
 offset_right = 1080.0
 offset_bottom = 56.0
-text = "Show Details"
+text = "Train From Data"
 
 [node name="Wing" parent="." instance=ExtResource("9_xx7vk")]
 playable = true
@@ -381,5 +388,6 @@ invincible = true
 [connection signal="timeout" from="CheckTimer" to="." method="_on_check_timer_timeout"]
 [connection signal="pressed" from="ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="ShowDetailsBtn" to="." method="_on_show_details_btn_pressed"]
+[connection signal="pressed" from="TrainFromDataBtn" to="." method="_on_train_from_data_btn_pressed"]
 
 [editable path="NnDisplay"]

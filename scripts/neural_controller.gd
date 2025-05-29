@@ -8,6 +8,9 @@ var main_menu = load("res://main.tscn")
 var network = {}
 var training = false
 
+var trainingInputs = []
+var trainingOutputs = []
+
 var autoGen = false
 
 func setNNDisp(ID):
@@ -21,10 +24,15 @@ func setNNDisp(ID):
 func trainNN(input, output):
 	if training:
 		network = NN.trainNN(network, input, output, $Parameters/EpochsSlider.value, $Parameters/LearningRateSlider.value)
-
+		
+		trainingInputs.append(input)
+		trainingOutputs.append(output)
 
 func _on_reset_nn_btn_pressed():
 	network = NN.generateRandomNN(9, 6, 3)
+	
+	trainingInputs.clear()
+	trainingOutputs.clear()
 	
 	$AnimationPlayer.play("pulse_bg")
 	
@@ -52,6 +60,8 @@ func _on_train_nn_btn_pressed():
 		get_node("Wings/Wing").network = network
 		get_node("Wings/Wing").position = wingPos
 		get_node("Wings/Wing").rotation_degrees = 0
+		
+		Globals.saveTrainingData(trainingInputs, trainingOutputs)
 
 
 func _on_play_pause_pressed():
@@ -62,6 +72,19 @@ func _on_play_pause_pressed():
 
 func _on_load_wing_button_pressed():
 	Globals.loadWing()
+	
+	for child in $Wings.get_children():
+		$Wings.remove_child(child)
+		child.queue_free()
+		
+		var wing = WingScene.instantiate()
+		wing.position = wingPos
+		wing.ID = -2
+		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
+		wing.invincible = true
+		wing.trainingMode = true
+		wing.network = Globals.parents[0]
+		$Wings.add_child(wing)
 
 
 func _process(delta):
@@ -109,3 +132,30 @@ func _on_exit_btn_pressed():
 func _on_show_details_btn_pressed():
 	Globals.toggleDetails = not Globals.toggleDetails
 	$NnDisplay.visible = Globals.toggleDetails
+
+
+func _on_train_from_data_btn_pressed():
+	training = true
+	var trainingData = Globals.loadTrainingData()
+	
+	var inputs = trainingData["inputs"]
+	var outputs = trainingData["outputs"]
+	
+	for i in range(outputs.size()):
+		trainNN(inputs[i], outputs[i])
+		print(i)
+
+	for child in $Wings.get_children():
+		$Wings.remove_child(child)
+		child.queue_free()
+		
+		var wing = WingScene.instantiate()
+		wing.position = wingPos
+		wing.ID = -2
+		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
+		wing.invincible = true
+		wing.trainingMode = true
+		wing.network = network
+		$Wings.add_child(wing)
+	
+	training = false

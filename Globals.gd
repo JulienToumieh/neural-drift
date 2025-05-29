@@ -38,13 +38,6 @@ func saveWing(network, wingname = "wing"):
 	save_file.store_line(JSON.stringify(wing_data))
 	save_file.close()
 
-
-func resetScores(count):
-	wingScores.clear()
-	for i in range(count):
-		wingScores.append(0) 
-
-
 func loadWing(wingname = "wing"):
 	var load_file = FileAccess.open(data_path + "/Wings/" + wingname + ".wng", FileAccess.READ)
 	
@@ -57,3 +50,36 @@ func loadWing(wingname = "wing"):
 	var network = wing_data["network"]
 	
 	addWing(network)
+
+
+func resetScores(count):
+	wingScores.clear()
+	for i in range(count):
+		wingScores.append(0) 
+
+
+func saveTrainingData(inputs, outputs):
+	DirAccess.make_dir_absolute(data_path + "/Training Data/")
+	var save_file = FileAccess.open(data_path + "/Training Data/TrainingData.td", FileAccess.WRITE)
+	
+	var input_data = {
+		"inputs": inputs,
+		"outputs": outputs
+	}
+	
+	save_file.store_line(JSON.stringify(input_data))
+	save_file.close()
+
+func loadTrainingData():
+	var load_file = FileAccess.open(data_path + "/Training Data/TrainingData.td", FileAccess.READ)
+	
+	var json_data = load_file.get_line()
+	load_file.close() 
+	var json = JSON.new()
+	var _parse_result = json.parse(json_data)
+
+	var training_data = json.data
+	var inputs = training_data["inputs"]
+	var outputs = training_data["outputs"]
+	
+	return training_data
