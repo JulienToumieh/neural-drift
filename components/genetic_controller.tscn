@@ -147,18 +147,17 @@ texture = ExtResource("2_ux1xd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.698039)
-position = Vector2(91.75, 359.75)
-scale = Vector2(184.5, 720.5)
+position = Vector2(89.75, 359.75)
+scale = Vector2(180.5, 720.5)
 texture = ExtResource("2_kgqup")
 
 [node name="NewPopulation" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 16.0
+offset_left = 8.0
 offset_top = 16.0
-offset_right = 96.0
+offset_right = 88.0
 offset_bottom = 104.0
-metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
 [node name="NewPopulation" type="Button" parent="NewPopulation"]
@@ -196,11 +195,10 @@ texture = ExtResource("2_by4p7")
 [node name="Mutate" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 16.0
+offset_left = 8.0
 offset_top = 104.0
-offset_right = 96.0
+offset_right = 88.0
 offset_bottom = 192.0
-metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
 [node name="Mutate" type="Button" parent="Mutate"]
@@ -238,12 +236,11 @@ texture = ExtResource("1_e327o")
 [node name="Crossover" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 96.0
+offset_left = 88.0
 offset_top = 104.0
-offset_right = 176.0
+offset_right = 168.0
 offset_bottom = 192.0
 metadata/_edit_group_ = true
-metadata/_edit_use_anchors_ = true
 
 [node name="Crossover" type="Button" parent="Crossover"]
 layout_mode = 0
@@ -280,11 +277,10 @@ texture = ExtResource("2_4tp7o")
 [node name="Population" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 96.0
+offset_left = 88.0
 offset_top = 16.0
-offset_right = 176.0
+offset_right = 168.0
 offset_bottom = 96.0
-metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
 [node name="Population" type="TextEdit" parent="Population"]
@@ -315,12 +311,11 @@ metadata/_edit_use_anchors_ = true
 [node name="Parameters" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 40.0
+offset_left = 32.0
 offset_top = 560.0
-offset_right = 408.0
+offset_right = 400.0
 offset_bottom = 672.0
 rotation = -1.5708
-metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
 [node name="MutationRateSlider" type="HSlider" parent="Parameters"]
@@ -399,13 +394,14 @@ offset_bottom = 87.0
 text = "Crossover Blend"
 
 [node name="Wings" type="Node2D" parent="."]
+position = Vector2(-8, 0)
 
 [node name="PlayPause2" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 32.0
+offset_left = 24.0
 offset_top = 608.0
-offset_right = 96.0
+offset_right = 88.0
 offset_bottom = 672.0
 metadata/_edit_group_ = true
 
@@ -433,9 +429,9 @@ z_index = 1
 position = Vector2(1080, 448)
 
 [node name="AutoGenButton" type="Button" parent="."]
-offset_left = 104.0
+offset_left = 96.0
 offset_top = 624.0
-offset_right = 160.0
+offset_right = 152.0
 offset_bottom = 656.0
 toggle_mode = true
 text = "Auto"

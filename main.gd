@@ -16,6 +16,9 @@ var levels = {
 func _process(delta):
 	$BGLines.modulate.h = Globals.hue
 	$BG.modulate.h = Globals.hue
+	
+	if Input.is_action_just_pressed("toggle_quality"):
+		_on_low_q_mode_btn_pressed()
 
 func updateLevel():
 	$Controls/TrackLbl.text = levels.get(level)
@@ -51,3 +54,13 @@ func _on_start_btn_pressed():
 			get_tree().change_scene_to_packed(track2)
 		3:
 			get_tree().change_scene_to_packed(track3)
+
+
+func _on_low_q_mode_btn_pressed():
+	Globals.lowQualityMode = not Globals.lowQualityMode
+	$WorldEnvironment.environment.glow_enabled = not Globals.lowQualityMode
+	
+	if Globals.lowQualityMode:
+		$AnimationPlayer2.pause()
+	else:
+		$AnimationPlayer2.play("bg_move")

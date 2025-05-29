@@ -12,6 +12,9 @@ var data_path = "user:/"
 
 var wingScores = []
 
+var lowQualityMode = false
+
+
 func _ready():
 	for i in range(2):
 		parents.append(GANN.generateRandomNN(5, 6, 3))

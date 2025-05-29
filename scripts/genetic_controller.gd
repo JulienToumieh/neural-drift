@@ -28,6 +28,7 @@ func _on_new_population_pressed():
 		var wing = WingScene.instantiate()
 		wing.position = wingPos
 		wing.ID = i
+		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
 		$Wings.add_child(wing)
 
 
@@ -47,6 +48,7 @@ func _on_mutate_pressed():
 		wing.network = Globals.parents[i]
 		wing.ID = (int($Population/Population.text) - 2) + i
 		wing.isParent = true
+		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
 		$Wings.add_child(wing)
 	
 	for i in range(int($Population/Population.text) - 2):
@@ -54,6 +56,7 @@ func _on_mutate_pressed():
 		wing.position = wingPos
 		wing.network = GANN.mutateNetwork(Globals.parents[0], $Parameters/MutationRateSlider.value, $Parameters/MutationStrengthSlider.value)
 		wing.ID = i
+		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
 		$Wings.add_child(wing)
 		
 
@@ -73,6 +76,7 @@ func _on_crossover_pressed():
 		wing.network = Globals.parents[i]
 		wing.ID = (int($Population/Population.text) - 2) + i
 		wing.isParent = true
+		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
 		$Wings.add_child(wing)
 	
 	for i in range(int($Population/Population.text)):
@@ -80,6 +84,7 @@ func _on_crossover_pressed():
 		wing.position = wingPos
 		wing.network = GANN.crossover(Globals.parents[0], Globals.parents[1], $Parameters/CrossoverRateSlider.value ,$Parameters/CrossoverBlendSlider.value, $Parameters/MutationRateSlider.value, $Parameters/MutationStrengthSlider.value)
 		wing.ID = i
+		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
 		$Wings.add_child(wing)
 
 
@@ -155,9 +160,31 @@ func _process(delta):
 	if Input.is_action_just_pressed("toggle_details"):
 		Globals.toggleDetails = not Globals.toggleDetails
 		$NnDisplay.visible = Globals.toggleDetails
+	
+	if Input.is_action_just_pressed("toggle_quality"):
+		Globals.lowQualityMode = not Globals.lowQualityMode
+		$WorldEnvironment.environment.glow_enabled = not Globals.lowQualityMode
+		
+		for child in $Wings.get_children():
+			if child.get_node("PointLight2D"):
+				child.get_node("PointLight2D").enabled = not Globals.lowQualityMode
+		
+		if Globals.lowQualityMode:
+			$AnimationPlayer2.pause()
+		else:
+			$AnimationPlayer2.play("bg_move")
+
+
 
 func _ready():
 	$NnDisplay.visible = Globals.toggleDetails
+	$WorldEnvironment.environment.glow_enabled = not Globals.lowQualityMode
+	
+	if Globals.lowQualityMode:
+		$AnimationPlayer2.pause()
+	else:
+		$AnimationPlayer2.play("bg_move")
+
 
 
 func _on_exit_btn_pressed():
