@@ -139,3 +139,8 @@ func trainNN(network, x, y, epochs := 100, learning_rate := 0.01):
 			#print("Epoch: " + str(epoch) + " Loss: " + str(loss))
 	
 	return network
+
+
+func trainSingleEpoch(network, x, y, learning_rate := 0.01):
+	network = backPropagate(network, x, y, learning_rate)
+	return network

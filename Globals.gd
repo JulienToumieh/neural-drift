@@ -12,6 +12,7 @@ var data_path = "user:/"
 
 var wingScores = []
 
+
 var lowQualityMode = false
 
 

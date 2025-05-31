@@ -256,7 +256,7 @@ offset_left = 192.0
 offset_top = 24.0
 offset_right = 352.0
 offset_bottom = 40.0
-max_value = 200.0
+max_value = 500.0
 step = 10.0
 value = 100.0
 
@@ -379,6 +379,25 @@ playable = true
 trainer = true
 trainingMode = true
 invincible = true
+
+[node name="LossGraph" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(368, 0)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="LossGraph"]
+modulate = Color(0, 0, 0, 0.815686)
+position = Vector2(424.008, 472.002)
+rotation = 3.14159
+scale = Vector2(247.982, -248.226)
+texture = ExtResource("2_4citv")
+offset = Vector2(-0.499989, 0.499986)
+
+[node name="LossGraph" type="Line2D" parent="LossGraph"]
+modulate = Color(1, 0.25, 0.25, 1)
+position = Vector2(448, 696)
+points = PackedVector2Array(0, -200, 200, 0)
+width = 2.0
 
 [connection signal="pressed" from="NewPopulation/ResetNNBtn" to="." method="_on_reset_nn_btn_pressed"]
 [connection signal="pressed" from="Mutate/TrainNNBtn" to="." method="_on_train_nn_btn_pressed"]
