@@ -84,3 +84,18 @@ func loadTrainingData():
 	var outputs = training_data["outputs"]
 	
 	return training_data
+
+
+func loadBuiltInTrainingData():
+	var load_file = FileAccess.open("res://TrainingData.td", FileAccess.READ)
+	
+	var json_data = load_file.get_line()
+	load_file.close() 
+	var json = JSON.new()
+	var _parse_result = json.parse(json_data)
+
+	var training_data = json.data
+	var inputs = training_data["inputs"]
+	var outputs = training_data["outputs"]
+	
+	return training_data

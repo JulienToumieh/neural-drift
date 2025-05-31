@@ -138,13 +138,19 @@ func _on_show_details_btn_pressed():
 
 
 func _on_train_from_data_btn_pressed():
-	training = true
 	var trainingData = Globals.loadTrainingData()
-	
+	trainFromData(trainingData)
+
+func _on_train_from_built_in_data_btn_pressed():
+	var trainingData = Globals.loadBuiltInTrainingData()
+	trainFromData(trainingData)
+
+
+func trainFromData(trainingData):
+	training = true
 	$LossGraph/LossGraph.clear_points()
 	
 	network = NN.generateRandomNN(9, 6, 3)
-	
 	
 	var inputs = trainingData["inputs"]
 	var outputs = trainingData["outputs"]
@@ -180,9 +186,8 @@ func _on_train_from_data_btn_pressed():
 		#print(str(Globals.epochs[i]) + " - " + str(Globals.losses[i]))
 		
 		lossGraphPoints.append(Vector2(i*3, -total_loss*1000))
-			
 
-	# Extract X and Y values
+
 	var x_values = []
 	var y_values = []
 
@@ -190,19 +195,16 @@ func _on_train_from_data_btn_pressed():
 		x_values.append(point.x)
 		y_values.append(point.y)
 
-	# Find min and max for each axis
 	var min_x = x_values.min()
 	var max_x = x_values.max()
 	var min_y = y_values.min()
 	var max_y = y_values.max()
 
-	# Avoid division by zero
 	if max_x == min_x:
 		max_x += 0.0001
 	if max_y == min_y:
 		max_y += 0.0001
 
-	# Normalize each point
 	for i in range(lossGraphPoints.size()):
 		var point = lossGraphPoints[i]
 

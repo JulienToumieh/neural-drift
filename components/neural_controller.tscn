@@ -361,18 +361,25 @@ offset_bottom = 56.0
 text = "Exit"
 
 [node name="ShowDetailsBtn" type="Button" parent="."]
-offset_left = 808.0
+offset_left = 520.0
 offset_top = 16.0
-offset_right = 928.0
+offset_right = 640.0
 offset_bottom = 56.0
 text = "Show Details"
 
 [node name="TrainFromDataBtn" type="Button" parent="."]
-offset_left = 944.0
+offset_left = 872.0
 offset_top = 16.0
 offset_right = 1080.0
 offset_bottom = 56.0
-text = "Train From Data"
+text = "Train From Previous Data"
+
+[node name="TrainFromBuiltInDataBtn" type="Button" parent="."]
+offset_left = 656.0
+offset_top = 16.0
+offset_right = 856.0
+offset_bottom = 56.0
+text = "Train From Built-In Data"
 
 [node name="Wing" parent="." instance=ExtResource("9_xx7vk")]
 playable = true
@@ -408,5 +415,6 @@ width = 2.0
 [connection signal="pressed" from="ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="ShowDetailsBtn" to="." method="_on_show_details_btn_pressed"]
 [connection signal="pressed" from="TrainFromDataBtn" to="." method="_on_train_from_data_btn_pressed"]
+[connection signal="pressed" from="TrainFromBuiltInDataBtn" to="." method="_on_train_from_built_in_data_btn_pressed"]
 
 [editable path="NnDisplay"]
