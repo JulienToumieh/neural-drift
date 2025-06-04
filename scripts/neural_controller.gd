@@ -48,6 +48,8 @@ func _on_reset_nn_btn_pressed():
 	wing.trainingMode = true
 	$Wings.add_child(wing)
 	
+	setNNDisp(-2)
+	
 	$Wing.position = wingPos
 	$Wing.rotation_degrees = 0
 
@@ -77,14 +79,16 @@ func _on_load_wing_button_pressed():
 		$Wings.remove_child(child)
 		child.queue_free()
 		
-		var wing = WingScene.instantiate()
-		wing.position = wingPos
-		wing.ID = -2
-		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
-		wing.invincible = true
-		wing.trainingMode = true
-		wing.network = Globals.parents[0]
-		$Wings.add_child(wing)
+	var wing = WingScene.instantiate()
+	wing.position = wingPos
+	wing.ID = -2
+	wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
+	wing.invincible = true
+	wing.trainingMode = true
+	wing.network = Globals.parents[0]
+	$Wings.add_child(wing)
+	
+	setNNDisp(-2)
 
 
 func _process(delta):
@@ -135,6 +139,7 @@ func _on_exit_btn_pressed():
 func _on_show_details_btn_pressed():
 	Globals.toggleDetails = not Globals.toggleDetails
 	$NnDisplay.visible = Globals.toggleDetails
+	$LossGraph.visible = Globals.toggleDetails
 
 
 func _on_train_from_data_btn_pressed():
@@ -148,6 +153,9 @@ func _on_train_from_built_in_data_btn_pressed():
 
 func trainFromData(trainingData):
 	training = true
+	$TrainingPopup.visible = true
+	await get_tree().create_timer(0.1).timeout
+	
 	$LossGraph/LossGraph.clear_points()
 	
 	network = NN.generateRandomNN(9, 6, 3)
@@ -221,14 +229,17 @@ func trainFromData(trainingData):
 	for child in $Wings.get_children():
 		$Wings.remove_child(child)
 		child.queue_free()
-		
-		var wing = WingScene.instantiate()
-		wing.position = wingPos
-		wing.ID = -2
-		wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
-		wing.invincible = true
-		wing.trainingMode = true
-		wing.network = network
-		$Wings.add_child(wing)
 	
+	var wing = WingScene.instantiate()
+	wing.position = wingPos
+	wing.ID = -2
+	wing.get_node("PointLight2D").enabled = not Globals.lowQualityMode
+	wing.invincible = true
+	wing.trainingMode = true
+	wing.network = network
+	$Wings.add_child(wing)
+	
+	setNNDisp(-2)
+	
+	$TrainingPopup.visible = false
 	training = false

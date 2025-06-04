@@ -406,6 +406,34 @@ position = Vector2(448, 696)
 points = PackedVector2Array(0, -200, 200, 0)
 width = 2.0
 
+[node name="TrainingPopup" type="Node2D" parent="."]
+visible = false
+z_index = 1
+metadata/_edit_group_ = true
+
+[node name="1Px" type="Sprite2D" parent="TrainingPopup"]
+modulate = Color(0, 0, 0, 0.784314)
+position = Vector2(640, 325.875)
+scale = Vector2(384, 148.25)
+texture = ExtResource("2_4citv")
+
+[node name="Label" type="Label" parent="TrainingPopup"]
+offset_left = 448.0
+offset_top = 280.0
+offset_right = 832.0
+offset_bottom = 328.0
+theme_override_font_sizes/font_size = 30
+text = "Training - Please Wait..."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="TrainingPopup"]
+offset_left = 448.0
+offset_top = 344.0
+offset_right = 832.0
+offset_bottom = 376.0
+text = "The app may seem unresponsive."
+horizontal_alignment = 1
+
 [connection signal="pressed" from="NewPopulation/ResetNNBtn" to="." method="_on_reset_nn_btn_pressed"]
 [connection signal="pressed" from="Mutate/TrainNNBtn" to="." method="_on_train_nn_btn_pressed"]
 [connection signal="pressed" from="PlayPause2/PlayPause" to="." method="_on_play_pause_pressed"]
