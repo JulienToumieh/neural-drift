@@ -12,7 +12,6 @@ var data_path = "user:/"
 
 var wingScores = []
 
-
 var lowQualityMode = false
 
 
@@ -99,3 +98,12 @@ func loadBuiltInTrainingData():
 	var outputs = training_data["outputs"]
 	
 	return training_data
+
+func _process(delta):
+	if Input.is_key_pressed(KEY_F11):
+		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+		
