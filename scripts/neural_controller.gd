@@ -64,7 +64,8 @@ func _on_train_nn_btn_pressed():
 		get_node("Wings/Wing").rotation_degrees = 0
 		
 		Globals.saveTrainingData(trainingInputs, trainingOutputs)
-
+		
+		$AnimationPlayer.play("pulse_bg")
 
 func _on_play_pause_pressed():
 	Globals.paused = not Globals.paused

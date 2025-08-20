@@ -100,7 +100,7 @@ func forwardPass(network, input):
 		outputOut.append(sigmoid(sum))
 	
 	for i in range(outputOut.size()):
-		layer3.get_node("Neuron" + str(i + 1)).modulate.a = outputOut[i] #int(outputOut[i] > 0.5)
+		layer3.get_node("Neuron" + str(i + 1)).modulate.a = int(outputOut[i] > 0.5) #outputOut[i]
 	
 
 func sigmoid(x: float) -> float:
